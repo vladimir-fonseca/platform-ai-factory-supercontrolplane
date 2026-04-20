@@ -1,0 +1,46 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable kubeadm control-plane template referenced by the ClusterClass.
+
+
+apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+kind: KubeadmControlPlaneTemplate
+# Reusable kubeadm control-plane template referenced by the ClusterClass.
+metadata:
+  # Reusable control-plane bootstrap template.
+  name: nvidia-ai-kcp-template
+  namespace: fleet
+# Desired kubeadm control-plane template content.
+spec:
+  # Template body reused for each control-plane instance.
+  template:
+    spec:
+      kubeadmConfigSpec:
+        clusterConfiguration:
+          apiServer:
+            extraArgs:
+              cloud-provider: external
+          controllerManager:
+            extraArgs:
+              cloud-provider: external
+
+        # Example kubelet defaults for control-plane nodes.
+        initConfiguration:
+          nodeRegistration:
+            kubeletExtraArgs:
+              cgroup-driver: systemd
+        joinConfiguration:
+          nodeRegistration:
+            kubeletExtraArgs:
+              cgroup-driver: systemd

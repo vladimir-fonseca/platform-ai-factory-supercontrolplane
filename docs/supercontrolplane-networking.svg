@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="640" viewBox="0 0 980 640"
+     font-family="'Segoe UI','Inter',system-ui,sans-serif">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="context-stroke" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="#534AB7" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <filter id="s" x="-4%" y="-8%" width="108%" height="124%">
+    <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#00000014"/>
+  </filter>
+</defs>
+
+<!-- page bg -->
+<rect width="980" height="640" fill="#F0EEE9"/>
+
+<!-- title -->
+<rect x="0" y="0" width="980" height="46" fill="#1A1033"/>
+<text x="490" y="16" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF" dominant-baseline="central">Networking architecture</text>
+<text x="490" y="34" text-anchor="middle" font-size="10" font-weight="400" fill="#9B8EC4" dominant-baseline="central">platform-supercontrolplane-oss-nvidia-capi · child cluster node view</text>
+
+<!-- ══════════════════════════════════════════════════════
+     MANAGEMENT CLUSTER — top bar
+══════════════════════════════════════════════════════ -->
+<rect x="16" y="54" width="756" height="48" rx="9" fill="#EAE8F8" stroke="#534AB7" stroke-width="1.2" filter="url(#s)"/>
+<text x="26" y="65" font-size="8.5" font-weight="700" fill="#534AB7" letter-spacing="0.8" dominant-baseline="central">MANAGEMENT CLUSTER</text>
+<rect x="26" y="74" width="200" height="22" rx="5" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.7"/>
+<text x="126" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium</text>
+<rect x="234" y="74" width="330" height="22" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="399" y="85" text-anchor="middle" font-size="10" font-weight="400" fill="#04342C" dominant-baseline="central">kubeProxyReplacement · native routing · Hubble UI + Relay · 10.0.0.0/8</text>
+
+<!-- arrow mgmt → child -->
+<line x1="170" y1="102" x2="170" y2="120" stroke="#534AB7" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="180" y="112" font-size="8.5" fill="#534AB7" dominant-baseline="central">Argo CD deploys</text>
+
+<!-- ══════════════════════════════════════════════════════
+     CHILD CLUSTER NODE — main container
+══════════════════════════════════════════════════════ -->
+<rect x="16" y="122" width="756" height="368" rx="13" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.4" filter="url(#s)"/>
+<text x="32" y="138" font-size="8.5" font-weight="700" fill="#185FA5" letter-spacing="0.8" dominant-baseline="central">CHILD CLUSTER NODE</text>
+
+<!-- ── POD NETWORK PLANE ───────────────────── -->
+<rect x="28" y="148" width="736" height="52" rx="8" fill="#D4EDFE" stroke="#185FA5" stroke-width="0.8" filter="url(#s)"/>
+<text x="38" y="158" font-size="8" font-weight="700" fill="#0C447C" letter-spacing="0.6" dominant-baseline="central">POD NETWORK</text>
+
+<rect x="38" y="166" width="160" height="26" rx="5" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.7"/>
+<text x="118" y="174" text-anchor="middle" font-size="10" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium CNI</text>
+<text x="118" y="186" text-anchor="middle" font-size="8.5" fill="#085041" dominant-baseline="central">kube-proxy replacement</text>
+
+<rect x="210" y="166" width="250" height="26" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="335" y="174" text-anchor="middle" font-size="10" fill="#04342C" dominant-baseline="central">native routing · 10.0.0.0/8</text>
+<text x="335" y="186" text-anchor="middle" font-size="8.5" fill="#085041" dominant-baseline="central">Hubble relay (observability)</text>
+
+<rect x="472" y="166" width="130" height="26" rx="5" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7"/>
+<text x="537" y="179" text-anchor="middle" font-size="10" fill="#04342C" dominant-baseline="central">Pod-to-pod / svc</text>
+
+<!-- ── SECONDARY NETWORK PLANE ─────────────── -->
+<rect x="28" y="210" width="736" height="52" rx="8" fill="#E8F0FB" stroke="#378ADD" stroke-width="0.8" filter="url(#s)"/>
+<text x="38" y="220" font-size="8" font-weight="700" fill="#0C447C" letter-spacing="0.6" dominant-baseline="central">SECONDARY NETWORKS (Multus)</text>
+
+<rect x="38" y="230" width="120" height="26" rx="5" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7"/>
+<text x="98" y="238" text-anchor="middle" font-size="10" font-weight="700" fill="#042C53" dominant-baseline="central">Multus CNI</text>
+<text x="98" y="250" text-anchor="middle" font-size="8.5" fill="#0C447C" dominant-baseline="central">multi-network broker</text>
+
+<!-- 3 NADs -->
+<rect x="172" y="230" width="168" height="26" rx="5" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.7"/>
+<text x="256" y="238" text-anchor="middle" font-size="9.5" font-weight="700" fill="#042C53" dominant-baseline="central">mgmt-sriov</text>
+<text x="256" y="250" text-anchor="middle" font-size="8.5" fill="#0C447C" dominant-baseline="central">ens1f0 · VLAN 100 · mgmt_sriov</text>
+
+<rect x="348" y="230" width="192" height="26" rx="5" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.7"/>
+<text x="444" y="238" text-anchor="middle" font-size="9.5" font-weight="700" fill="#042C53" dominant-baseline="central">tenant-a-sriov</text>
+<text x="444" y="250" text-anchor="middle" font-size="8.5" fill="#0C447C" dominant-baseline="central">ens1f1 · VLAN 210 · tenant_a_sriov</text>
+
+<rect x="548" y="230" width="192" height="26" rx="5" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.7"/>
+<text x="644" y="238" text-anchor="middle" font-size="9.5" font-weight="700" fill="#042C53" dominant-baseline="central">tenant-b-sriov</text>
+<text x="644" y="250" text-anchor="middle" font-size="8.5" fill="#0C447C" dominant-baseline="central">ens1f2 · VLAN 220 · tenant_b_sriov</text>
+
+<!-- ── SR-IOV PLANE ────────────────────────── -->
+<rect x="28" y="272" width="736" height="52" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.8" filter="url(#s)"/>
+<text x="38" y="282" font-size="8" font-weight="700" fill="#27500A" letter-spacing="0.6" dominant-baseline="central">SR-IOV DEVICE PLUGIN  ·  Mellanox 15b3 · switchdev · RDMA · numVfs per-family overlay</text>
+
+<rect x="38"  y="292" width="196" height="24" rx="5" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.7"/>
+<text x="136" y="304" text-anchor="middle" font-size="9.5" fill="#173404" dominant-baseline="central">nvidia.com/mgmt_sriov (ens1f0)</text>
+
+<rect x="244" y="292" width="240" height="24" rx="5" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.7"/>
+<text x="364" y="304" text-anchor="middle" font-size="9.5" fill="#173404" dominant-baseline="central">nvidia.com/tenant_a_sriov (ens1f1)</text>
+
+<rect x="494" y="292" width="240" height="24" rx="5" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.7"/>
+<text x="614" y="304" text-anchor="middle" font-size="9.5" fill="#173404" dominant-baseline="central">nvidia.com/tenant_b_sriov (ens1f2)</text>
+
+<!-- ── DPF / BLUEFIELD PLANE ───────────────── -->
+<rect x="28" y="334" width="736" height="142" rx="8" fill="#FFF4E8" stroke="#BA7517" stroke-width="1.2" filter="url(#s)"/>
+<text x="38" y="346" font-size="8" font-weight="700" fill="#633806" letter-spacing="0.6" dominant-baseline="central">BLUEFIELD DPU — Arm cores (DPF · Kamaji DPUCluster · dpu-cluster-a · max 16 nodes)</text>
+
+<!-- DPF operator -->
+<rect x="38" y="356" width="180" height="50" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.8"/>
+<text x="128" y="372" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">DPF Operator</text>
+<text x="128" y="386" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">DPUSet · DPUCluster</text>
+<text x="128" y="398" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">BFB provisioning</text>
+
+<!-- HBN service -->
+<rect x="230" y="356" width="200" height="50" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.8"/>
+<text x="330" y="372" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">HBN service</text>
+<text x="330" y="386" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">doca-hbn · host-trusted mode</text>
+<text x="330" y="398" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">DPUDeployment: dpu-deployment-hbn</text>
+
+<!-- OVS-DPDK bridges -->
+<rect x="38"  y="416" width="116" height="48" rx="6" fill="#EF9F27" stroke="#854F0B" stroke-width="0.8"/>
+<text x="96" y="432" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">br-sfc</text>
+<text x="96" y="446" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">OVS/DPDK</text>
+<text x="96" y="458" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">datapath=netdev</text>
+
+<rect x="164" y="416" width="116" height="48" rx="6" fill="#EF9F27" stroke="#854F0B" stroke-width="0.8"/>
+<text x="222" y="432" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">br-hbn</text>
+<text x="222" y="446" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">OVS/DPDK</text>
+<text x="222" y="458" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">fail_mode=secure</text>
+
+<!-- OVN integration -->
+<rect x="440" y="356" width="310" height="108" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.8"/>
+<text x="595" y="372" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">OVN integration</text>
+<text x="595" y="388" text-anchor="middle" font-size="9" fill="#633806" dominant-baseline="central">encapsulation: Geneve</text>
+
+<rect x="452" y="396" width="130" height="22" rx="4" fill="#FAC775" stroke="#BA7517" stroke-width="0.6"/>
+<text x="517" y="407" text-anchor="middle" font-size="8.5" fill="#412402" dominant-baseline="central">br-hbn-tenant-a (p0)</text>
+
+<rect x="592" y="396" width="148" height="22" rx="4" fill="#FAC775" stroke="#BA7517" stroke-width="0.6"/>
+<text x="666" y="407" text-anchor="middle" font-size="8.5" fill="#412402" dominant-baseline="central">br-hbn-tenant-b (p1)</text>
+
+<rect x="452" y="426" width="130" height="22" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.6"/>
+<text x="517" y="437" text-anchor="middle" font-size="8.5" fill="#412402" dominant-baseline="central">VLAN 210 · uplink p0</text>
+
+<rect x="592" y="426" width="148" height="22" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.6"/>
+<text x="666" y="437" text-anchor="middle" font-size="8.5" fill="#412402" dominant-baseline="central">VLAN 220 · uplink p1</text>
+
+<text x="595" y="455" text-anchor="middle" font-size="8.5" fill="#633806" dominant-baseline="central">hw-offload=true · dpdk-max-memzones=50000</text>
+
+<!-- ── PHYSICAL FABRIC ────────────────────── -->
+<rect x="28" y="488" width="736" height="44" rx="8" fill="#D3D1C7" stroke="#888780" stroke-width="0.8" filter="url(#s)"/>
+<text x="38" y="498" font-size="8" font-weight="700" fill="#2C2C2A" letter-spacing="0.6" dominant-baseline="central">PHYSICAL FABRIC</text>
+<rect x="38"  y="506" width="156" height="20" rx="4" fill="#B4B2A9" stroke="#5F5E5A" stroke-width="0.6"/>
+<text x="116" y="516" text-anchor="middle" font-size="8.5" fill="#2C2C2A" dominant-baseline="central">ens1f0 · mgmt (VLAN 100)</text>
+<rect x="204" y="506" width="256" height="20" rx="4" fill="#B4B2A9" stroke="#5F5E5A" stroke-width="0.6"/>
+<text x="332" y="516" text-anchor="middle" font-size="8.5" fill="#2C2C2A" dominant-baseline="central">ens1f1 → p0 · tenant-a (VLAN 210) · RDMA</text>
+<rect x="470" y="506" width="256" height="20" rx="4" fill="#B4B2A9" stroke="#5F5E5A" stroke-width="0.6"/>
+<text x="598" y="516" text-anchor="middle" font-size="8.5" fill="#2C2C2A" dominant-baseline="central">ens1f2 → p1 · tenant-b (VLAN 220) · RDMA</text>
+
+<!-- ══════════════════════════════════════════════════════
+     OVN CONTROL PLANE — right panel
+══════════════════════════════════════════════════════ -->
+<rect x="780" y="54" width="184" height="216" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.2" filter="url(#s)"/>
+<text x="872" y="68" text-anchor="middle" font-size="8.5" font-weight="700" fill="#534AB7" letter-spacing="0.7" dominant-baseline="central">OVN CONTROL PLANE</text>
+
+<rect x="792" y="80" width="160" height="38" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.8"/>
+<text x="872" y="93" text-anchor="middle" font-size="10" font-weight="700" fill="#26215C" dominant-baseline="central">OVN Northbound DB</text>
+<text x="872" y="107" text-anchor="middle" font-size="8.5" fill="#3C3489" dominant-baseline="central">:6641</text>
+
+<rect x="792" y="126" width="160" height="38" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.8"/>
+<text x="872" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#26215C" dominant-baseline="central">OVN Southbound DB</text>
+<text x="872" y="153" text-anchor="middle" font-size="8.5" fill="#3C3489" dominant-baseline="central">:6642</text>
+
+<rect x="792" y="172" width="160" height="28" rx="5" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.7"/>
+<text x="872" y="186" text-anchor="middle" font-size="9.5" fill="#26215C" dominant-baseline="central">Geneve encapsulation</text>
+
+<text x="872" y="210" text-anchor="middle" font-size="8" fill="#534AB7" dominant-baseline="central">ovn-nb.internal.example.com</text>
+<text x="872" y="224" text-anchor="middle" font-size="8" fill="#534AB7" dominant-baseline="central">ovn-sb.internal.example.com</text>
+<text x="872" y="238" text-anchor="middle" font-size="8" fill="#7F77DD" dominant-baseline="central">↕ HBN OVN integration</text>
+<text x="872" y="252" text-anchor="middle" font-size="8" fill="#7F77DD" dominant-baseline="central">tcp bridge mappings:</text>
+<text x="872" y="264" text-anchor="middle" font-size="8" fill="#9B8EC4" dominant-baseline="central">tenant-a → br-hbn-tenant-a</text>
+
+<!-- arrow: OVN → DPU -->
+<line x1="872" y1="270" x2="750" y2="400" stroke="#534AB7" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#a)"/>
+
+<!-- ══════════════════════════════════════════════════════
+     VERTICAL DATA FLOW ARROWS
+══════════════════════════════════════════════════════ -->
+<!-- Pod → Multus -->
+<line x1="256" y1="199" x2="256" y2="209" stroke="#185FA5" stroke-width="1" marker-end="url(#a)"/>
+<!-- Multus → SR-IOV -->
+<line x1="256" y1="259" x2="256" y2="271" stroke="#185FA5" stroke-width="1" marker-end="url(#a)"/>
+<!-- SR-IOV → DPU -->
+<line x1="256" y1="323" x2="256" y2="333" stroke="#BA7517" stroke-width="1" marker-end="url(#a)"/>
+<!-- DPU → physical -->
+<line x1="256" y1="477" x2="256" y2="487" stroke="#888780" stroke-width="1" marker-end="url(#a)"/>
+
+<!-- ══════════════════════════════════════════════════════
+     LEGEND
+══════════════════════════════════════════════════════ -->
+<rect x="16" y="550" width="948" height="76" rx="9" fill="#E8E6DF" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="30" y="563" font-size="8.5" font-weight="700" fill="#2C2C2A" dominant-baseline="central">KEY</text>
+
+<rect x="30"  y="573" width="10" height="10" rx="2" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.6"/>
+<text x="46"  y="578" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">Cilium (pod network, kube-proxy replacement, Hubble)</text>
+
+<rect x="30"  y="590" width="10" height="10" rx="2" fill="#85B7EB" stroke="#185FA5" stroke-width="0.6"/>
+<text x="46"  y="595" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">Multus + SR-IOV secondary nets</text>
+
+<rect x="260" y="573" width="10" height="10" rx="2" fill="#EF9F27" stroke="#854F0B" stroke-width="0.6"/>
+<text x="276" y="578" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">BlueField DPU (OVS-DPDK, HBN, br-sfc / br-hbn)</text>
+
+<rect x="260" y="590" width="10" height="10" rx="2" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.6"/>
+<text x="276" y="595" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">OVN control plane (NB :6641 / SB :6642, Geneve)</text>
+
+<rect x="500" y="573" width="10" height="10" rx="2" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.6"/>
+<text x="516" y="578" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">SR-IOV VFs (Mellanox 15b3 · switchdev · RDMA · numVfs per-family overlay · 3 NodePolicies: ens1f0, ens1f1, ens1f2)</text>
+
+<text x="516" y="595" font-size="8.5" fill="#5F5E5A" dominant-baseline="central">NADs: mgmt-sriov VLAN 100 · tenant-a-sriov VLAN 210 · tenant-b-sriov VLAN 220</text>
+
+<text x="30" y="612" font-size="8" fill="#888780" dominant-baseline="central">HBN mode: host-trusted · OVS: doca-init, hw-offload=true, pmd-quiet-idle=true, MTU 9216 · No VRFs defined · SriovNetworkNodePolicy on all 3 PFs · numVfs set per family overlay (H100=16, B200/GB200=32 example)</text>
+</svg>

@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Service that exposes the Ironic API endpoint inside the management cluster.
+
+
+apiVersion: v1
+kind: Service
+# ClusterIP service for the Ironic API used by Metal3 and CAPM3.
+metadata:
+  name: ironic
+  namespace: capm3-system
+spec:
+  selector:
+    app.kubernetes.io/name: ironic
+  ports:
+    - name: api
+      port: 6385
+      targetPort: api

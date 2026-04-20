@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored DPF control-plane objects for the child-cluster DPU stack.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - bfb.yaml
+  - dpfoperatorconfig.yaml
+  - dpucluster.yaml
+  - dpuset.yaml

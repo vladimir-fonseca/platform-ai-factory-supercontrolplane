@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch that keeps the GB200 rack-scale posture on full GPUs and disables MIG management.
+
+
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  # Patch the shared GPU operator ClusterPolicy object rather than creating a second policy.
+  name: gpu-cluster-policy
+spec:
+  # Present full GPUs for NVLink mesh-oriented rack-scale operation.
+  mig:
+    strategy: none
+  migManager:
+    enabled: false

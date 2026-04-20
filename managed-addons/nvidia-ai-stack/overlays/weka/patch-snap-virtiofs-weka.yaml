@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Overlay patch that converts the backend-neutral SNAP virtio-fs configuration into a WEKA client-backed configuration.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceConfiguration
+metadata:
+  # Patch the shared POSIX virtio-fs service used by child clusters.
+  name: snap-virtiofs
+  namespace: dpf-operator-system
+spec:
+  serviceConfiguration:
+    storage:
+      # Present a shared POSIX filesystem through virtio-fs.
+      mode: virtiofs
+      # Explicitly record that this overlay targets a WEKA backend.
+      backend: weka
+      # Management endpoints for the WEKA cluster.
+      managementHosts:
+        - weka-mgmt-a.storage.example.com
+        - weka-mgmt-b.storage.example.com
+      # Logical WEKA filesystem exported to guest nodes through virtio-fs.
+      filesystemName: ai-shared
+      # Mount point inside the DPU service environment for the WEKA POSIX client.
+      mountPath: /mnt/weka/ai-shared
+
+      # Performance-oriented client settings. Replace with the exact values
+      # validated for your WEKA client image, DPU service runtime, and fabric.
+      mountOptions:
+        - num_cores=4
+        - core_ids=0,1,2,3
+        - net=udp
+        - io_threads=4
+        - dedicated_mode=true
+        - stateless=false

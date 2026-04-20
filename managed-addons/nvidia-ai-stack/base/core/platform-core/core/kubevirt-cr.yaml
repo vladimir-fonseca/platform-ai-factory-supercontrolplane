@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Singleton KubeVirt custom resource applied to onboarded child clusters.
+
+
+apiVersion: kubevirt.io/v1
+kind: KubeVirt
+# Singleton KubeVirt control-plane object that defines the virtualization posture for child clusters.
+metadata:
+  # Singleton KubeVirt control-plane object.
+  name: kubevirt
+  namespace: kubevirt
+# Desired KubeVirt platform behavior enforced in the child cluster.
+spec:
+  configuration:
+    developerConfiguration:
+      # Feature gates enabled for the virtualization posture used by this package.
+      featureGates:
+        # Enable direct GPU device assignment for accelerated VM workloads.
+        - GPU
+        # Disable legacy mediated-device configuration because this package models direct device assignment instead.
+        - DisableMDEVConfiguration
+        # Enable live migration support for maintenance and VM mobility workflows.
+        - LiveMigration
+        # Enable passt-based networking support for VM networking scenarios that benefit from it.
+        - Passt

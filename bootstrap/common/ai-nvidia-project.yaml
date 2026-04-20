@@ -1,0 +1,46 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  # AppProject created before the bootstrap Applications so child Applications can use a package-specific Argo CD project.
+  name: ai-nvidia
+  namespace: argocd
+  annotations:
+    # Ensure the AppProject is applied before any bootstrap or child Application that references it.
+    argocd.argoproj.io/sync-wave: "-100"
+spec:
+  # Human-readable description of the project boundary used by this package family.
+  description: Supercontrolplane NVIDIA platform project boundary
+  sourceRepos:
+    # Allow the package repo and related Git sources used by this platform family.
+    - '*'
+  destinations:
+    # Allow deployment to the local cluster.
+    - namespace: '*'
+      server: https://kubernetes.default.svc
+    # Allow deployment to registered dev site clusters.
+    - namespace: '*'
+      server: https://k8s-api.dev.example.com
+    # Allow deployment to registered prod site clusters.
+    - namespace: '*'
+      server: https://k8s-api.prod.example.com
+  clusterResourceWhitelist:
+    # Allow managing cluster-scoped resources needed by this platform.
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    # Allow managing namespaced resources needed by this platform.
+    - group: '*'
+      kind: '*'

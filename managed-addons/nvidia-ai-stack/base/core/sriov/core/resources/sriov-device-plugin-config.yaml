@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Device plugin configuration that maps SR-IOV resources into Kubernetes resource names.
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sriov-device-plugin-config
+  namespace: sriov-system
+data:
+  config.json: |
+    {
+      "resourceList": [
+        {
+          "resourceName": "mgmt_sriov",
+          "selectors": {
+            "vendors": ["15b3"],
+            "isRdma": true,
+            "pfNames": ["ens1f0"]
+          }
+        },
+        {
+          "resourceName": "tenant_a_sriov",
+          "selectors": {
+            "vendors": ["15b3"],
+            "isRdma": true,
+            "pfNames": ["ens1f1"]
+          }
+        },
+        {
+          "resourceName": "tenant_b_sriov",
+          "selectors": {
+            "vendors": ["15b3"],
+            "isRdma": true,
+            "pfNames": ["ens1f2"]
+          }
+        }
+      ]
+    }

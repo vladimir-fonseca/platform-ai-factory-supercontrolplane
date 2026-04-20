@@ -1,0 +1,38 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable DPU service template referenced by child-cluster DPU deployments.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+# Reusable DPU service template referenced by deployment compositions.
+metadata:
+  # SNAP block service with virtio-blk guest-visible emulation.
+  name: snap-block-virtio-blk
+  namespace: dpf-operator-system
+# Desired service-container and network/storage wiring for a DPU function.
+spec:
+  deploymentServiceName: snap-block-virtio-blk
+  helmChart:
+    source:
+      repoURL: https://helm.ngc.nvidia.com/nvidia/doca
+      chart: doca-snap
+      version: 1.0.0
+    values:
+      mode: block
+      backend: nvme
+      emulation: virtio-blk
+      serviceDaemonSet:
+        nodeSelector:
+          kubernetes.io/arch: arm64

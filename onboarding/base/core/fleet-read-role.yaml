@@ -1,0 +1,32 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# RBAC role in the fleet namespace that allows onboarding automation to discover child-cluster kubeconfig secrets and cluster labels.
+
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+# Namespaced RBAC role granted in the source namespace that holds child-cluster state.
+metadata:
+  name: argocd-cluster-register-fleet-read
+  namespace: fleet
+# API permissions granted to this role.
+rules:
+  # Read child-cluster kubeconfig secrets in the fleet namespace.
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+  # Read Cluster API Cluster objects in order to copy lifecycle labels into the Argo CD cluster secret.
+  - apiGroups: ["cluster.x-k8s.io"]
+    resources: ["clusters"]
+    verbs: ["get", "list"]

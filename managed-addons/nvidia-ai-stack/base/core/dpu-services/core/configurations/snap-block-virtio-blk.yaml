@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Concrete DPU service configuration that parameterizes a reusable service template.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceConfiguration
+# Concrete configuration instance for a DPU service template.
+metadata:
+  # Backend-neutral runtime config for virtio-blk-emulated SNAP block.
+  name: snap-block-virtio-blk
+  namespace: dpf-operator-system
+# Desired runtime parameters for this DPU service.
+spec:
+  deploymentServiceName: snap-block-virtio-blk
+  serviceConfiguration:
+    storage:
+      mode: block
+      transport: tcp
+      targetAddress: block-target.storage.example.com
+      targetPort: 4420
+      subsystemNQN: nqn.2026-01.com.example:storage.generic.virtio01

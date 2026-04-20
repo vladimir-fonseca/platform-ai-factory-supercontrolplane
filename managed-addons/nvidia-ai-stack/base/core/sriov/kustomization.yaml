@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the child-cluster SR-IOV layer.
+# Keep authored resources under `core/` and chart values under `values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Install authored SR-IOV configuration objects from Git.
+  - core
+helmCharts:
+  # Install the SR-IOV Network Operator through Helm so node policy support and CRDs are managed declaratively.
+  - name: sriov-network-operator
+    # Helm release name used for rendered resource ownership.
+    releaseName: sriov-network-operator
+    # Namespace where SR-IOV operator resources land in the child cluster.
+    namespace: sriov-system
+    # Chart repository that hosts the SR-IOV operator chart.
+    repo: https://openshift.github.io/sriov-network-operator
+    # Pin the chart version for reproducible reconciliations.
+    version: 1.5.0
+    # Git-tracked values for the child-cluster SR-IOV operator.
+    valuesFile: values/values-sriov-network-operator.yaml
+  # Install the SR-IOV network device plugin through Helm rather than a hand-written daemonset whenever possible.
+  - name: sriov-network-device-plugin
+    # Helm release name used for rendered resource ownership.
+    releaseName: sriov-network-device-plugin
+    # Namespace where the device plugin resources land in the child cluster.
+    namespace: sriov-system
+    # Chart repository that hosts the SR-IOV device plugin chart.
+    repo: https://k8snetworkplumbingwg.github.io/sriov-network-device-plugin
+    # Pin the chart version for reproducible reconciliations.
+    version: 3.8.0
+    # Git-tracked values for the child-cluster SR-IOV device plugin.
+    valuesFile: values/values-sriov-device-plugin.yaml

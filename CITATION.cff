@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+title: "platform-ai-factory-supercontrolplane"
+authors:
+  - family-names: Fonseca
+    given-names: Vladimir
+date-released: 2026
+license: Apache-2.0

@@ -1,0 +1,43 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# ConfigMap that records the intended OVN and HBN integration settings for this package.
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hbn-ovn-settings
+  namespace: dpf-operator-system
+data:
+  settings.yaml: |
+    ovn:
+      northboundDatabase: tcp:ovn-nb.internal.example.com:6641
+      southboundDatabase: tcp:ovn-sb.internal.example.com:6642
+      encapsulationType: geneve
+      bridgeMappings:
+        - provider: tenant-a
+          bridge: br-hbn-tenant-a
+        - provider: tenant-b
+          bridge: br-hbn-tenant-b
+      uplinks:
+        - pfName: p0
+          role: tenant-a
+        - pfName: p1
+          role: tenant-b
+    hbn:
+      mode: host-trusted
+      managementNetworkAttachment: dpu-mgmt
+      providerNetworks:
+        - tenant-a
+        - tenant-b

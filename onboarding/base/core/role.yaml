@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# RBAC role that scopes what the onboarding automation can read or create.
+
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+# Namespaced RBAC role for onboarding automation.
+metadata:
+  name: argocd-cluster-register
+  namespace: argocd
+# API permissions granted to this role.
+rules:
+  # Read kubeconfigs and create/update cluster secrets.
+  - apiGroups: [""]
+    resources: ["secrets", "configmaps"]
+    verbs: ["get", "list", "create", "update", "patch"]

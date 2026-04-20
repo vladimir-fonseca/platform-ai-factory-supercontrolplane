@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPU deployment composition that chooses which DPU services run in this trust mode.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Activate exactly one default DPU deployment profile in the shared base.
+  # Site-specific or backend-specific overlays should replace this selection rather than activating multiple profiles at once.
+  - host-trusted.yaml

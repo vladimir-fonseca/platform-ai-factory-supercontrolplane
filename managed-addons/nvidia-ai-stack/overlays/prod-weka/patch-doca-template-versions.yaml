@@ -1,0 +1,55 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch DOCA service templates so chart version ownership stays at the overlay boundary.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+metadata:
+  name: hbn
+  namespace: dpf-operator-system
+spec:
+  helmChart:
+    source:
+      version: 1.0.0
+---
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+metadata:
+  name: snap-virtiofs
+  namespace: dpf-operator-system
+spec:
+  helmChart:
+    source:
+      version: 1.0.0
+---
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+metadata:
+  name: snap-block-nvme
+  namespace: dpf-operator-system
+spec:
+  helmChart:
+    source:
+      version: 1.0.0
+---
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+metadata:
+  name: snap-block-virtio-blk
+  namespace: dpf-operator-system
+spec:
+  helmChart:
+    source:
+      version: 1.0.0

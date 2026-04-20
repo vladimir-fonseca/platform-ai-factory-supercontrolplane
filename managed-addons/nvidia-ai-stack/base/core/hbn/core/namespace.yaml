@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Namespace manifest created before the explicit HBN / OVN networking resources are applied.
+
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  # Namespace that scopes the authored HBN control and service objects in this package.
+  name: dpf-operator-system

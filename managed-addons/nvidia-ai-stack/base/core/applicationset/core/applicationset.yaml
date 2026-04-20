@@ -1,0 +1,69 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# ApplicationSet that attaches the child-cluster NVIDIA AI addon stack to matching registered clusters.
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+# Argo CD ApplicationSet used to fan out the addon stack to matching child clusters.
+metadata:
+  # Fan-out object that attaches this AI stack to every Argo CD-registered cluster matching the selector below.
+  name: nvidia-ai-stack
+  namespace: argocd
+# Generator and template logic for child-cluster application fan-out.
+spec:
+  # Use Go templating so the generated Application can select a family-specific overlay path from cluster labels.
+  goTemplate: true
+  goTemplateOptions:
+    # Allow optional labels such as gpu-family to be absent and fall back gracefully.
+    - missingkey=default
+  # Sources that discover clusters or parameter sets for generated applications.
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            # Child clusters must carry this label on their Argo CD cluster secret to receive the addon stack.
+            platform-profile: nvidia-ai
+
+  # Template applied to each generated Argo CD Application.
+  template:
+    metadata:
+      # One generated Argo CD Application per child cluster.
+      name: '{{.name}}-nvidia-ai-stack'
+    spec:
+      # Use the package-specific Argo CD project instead of the default project.
+      project: ai-nvidia
+      source:
+        # Git repo that holds the desired state for this generated Application.
+        repoURL: https://git.example.com/platform-ai-factory-supercontrolplane.git
+        # Git revision to follow for reconciliation.
+        targetRevision: main
+        # Route each cluster to a family-specific overlay where the MIG posture is expressed explicitly.
+        path: '{{- $gpu := default "" (index .metadata.labels "gpu-family.nvidia.com/name") -}}{{- if or (eq $gpu "h100") (eq $gpu "h200") -}}managed-addons/nvidia-ai-stack/overlays/prod-h100{{- else if or (eq $gpu "b200") (eq $gpu "b300") -}}managed-addons/nvidia-ai-stack/overlays/prod-b200{{- else if or (eq $gpu "gb200") (eq $gpu "gb300") -}}managed-addons/nvidia-ai-stack/overlays/prod-gb200{{- else -}}managed-addons/nvidia-ai-stack/overlays/prod{{- end -}}'
+      destination:
+        # Argo CD substitutes the child-cluster server from the cluster secret.
+        server: '{{.server}}'
+        # Namespace where the generated Application object lives.
+        namespace: argocd
+      syncPolicy:
+        automated:
+          # Delete managed resources that were removed from Git.
+          prune: true
+          # Automatically correct drift between Git and the live cluster.
+          selfHeal: true
+        syncOptions:
+          # Create any missing namespaces declared by the generated app.
+          - CreateNamespace=true
+          # Prefer server-side apply for larger or more complex objects.
+          - ServerSideApply=true

@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the CAPM3 management-plane layer.
+# Keep authored resources under `base/core/` and chart values under `base/values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Create namespaces and supporting services before rendering the CAPM3 chart.
+  - core
+helmCharts:
+  # Render CAPM3 directly from Git so the infrastructure-provider install remains explicit.
+  - name: capm3
+    # Helm release name used for rendered resource ownership.
+    releaseName: capm3
+    # Namespace where CAPM3 controller resources land.
+    namespace: capm3-system
+    # Chart registry that hosts the CAPM3 bundle used by this platform.
+    repo: oci://registry.example.com/platform/charts
+    # Pin the chart version for reproducible reconciliations.
+    version: 1.10.0
+    # Git-tracked values for the CAPM3 installation.
+    valuesFile: values/values-capm3.yaml

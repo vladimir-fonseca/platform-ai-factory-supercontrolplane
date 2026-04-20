@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch that enables an H100-oriented MIG posture for the Hopper family overlay.
+
+
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  # Patch the shared GPU operator ClusterPolicy object rather than creating a second policy.
+  name: gpu-cluster-policy
+spec:
+  # Use a single MIG strategy so all GPUs on the node expose the same geometry.
+  mig:
+    strategy: single
+  migManager:
+    enabled: true
+    config:
+      # Seven 1g.10gb slices per H100 is a practical starting point for a shared development or inference posture.
+      default: all-1g.10gb

@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Example SR-IOV-backed secondary network consumed through Multus.
+
+
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  # NAD name used by pod annotations or KubeVirt interfaces.
+  name: tenant-a-sriov
+  namespace: default
+spec:
+  config: |
+    {
+      "cniVersion": "0.4.0",
+      "name": "tenant-a-sriov",
+      "type": "sriov",
+      "resourceName": "nvidia.com/tenant_a_sriov",
+      "vlan": 210,
+      "spoofchk": "off",
+      "trust": "on"
+    }

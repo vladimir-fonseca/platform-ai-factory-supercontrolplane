@@ -1,0 +1,94 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Kyverno policy in the management cluster policy layer.
+
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+# Singleton Kyverno policy object that generates a minimal namespace-level NetworkPolicy baseline.
+metadata:
+  # Generate a default-deny baseline and a kube-dns egress exception in managed namespaces.
+  name: generate-default-networkpolicy-baseline
+# Desired policy behavior enforced by the controller.
+spec:
+  generateExisting: true
+  # Policy rules evaluated against matching resources.
+  rules:
+    - name: default-deny
+      # Resource match criteria for the rule.
+      match:
+        any:
+          - resources:
+              kinds: ["Namespace"]
+      # Resource exclusions that should not trigger the rule.
+      exclude:
+        any:
+          - resources:
+              names: ["kube-system", "kube-public", "kube-node-lease", "argocd", "kyverno"]
+      # Generated object definition emitted by the policy rule.
+      generate:
+        synchronize: true
+        apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        name: default-deny-all
+        namespace: "{{ request.object.metadata.name }}"
+        data:
+          metadata:
+            labels:
+              managed-by: kyverno
+              networkpolicy.nvidia.com/baseline: default-deny
+          spec:
+            # Apply the default deny baseline to all pods in the namespace.
+            podSelector: {}
+            policyTypes: ["Ingress", "Egress"]
+    - name: allow-kube-dns-egress
+      # Resource match criteria for the rule.
+      match:
+        any:
+          - resources:
+              kinds: ["Namespace"]
+      # Resource exclusions that should not trigger the rule.
+      exclude:
+        any:
+          - resources:
+              names: ["kube-system", "kube-public", "kube-node-lease", "argocd", "kyverno"]
+      # Generated object definition emitted by the policy rule.
+      generate:
+        synchronize: true
+        apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        name: allow-kube-dns-egress
+        namespace: "{{ request.object.metadata.name }}"
+        data:
+          metadata:
+            labels:
+              managed-by: kyverno
+              networkpolicy.nvidia.com/baseline: kube-dns-egress
+          spec:
+            # Apply the DNS exception to all pods in the namespace.
+            podSelector: {}
+            policyTypes: ["Egress"]
+            egress:
+              - to:
+                  - namespaceSelector:
+                      matchLabels:
+                        kubernetes.io/metadata.name: kube-system
+                    podSelector:
+                      matchLabels:
+                        k8s-app: kube-dns
+                ports:
+                  - protocol: UDP
+                    port: 53
+                  - protocol: TCP
+                    port: 53

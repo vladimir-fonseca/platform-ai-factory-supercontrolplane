@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch the CAPM3 overlay kustomization so the controller image pins are defined at the overlay level.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+helmCharts:
+  - name: capm3
+    releaseName: capm3
+    namespace: capm3-system
+    repo: oci://registry.example.com/platform/charts
+    version: 1.10.0
+    valuesFile: values-capm3-overlay.yaml

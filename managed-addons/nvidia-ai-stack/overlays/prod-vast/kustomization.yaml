@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Production entrypoint for the VAST-backed child-cluster overlay.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Compose the VAST-backed storage overlay as the production variant.
+  - ../vast
+patches:
+  # Keep operator/runtime image pinning in the overlay rather than the shared base.
+  - path: patch-values-file.yaml
+  # Replace the shared-base DPF sizing and flavor placeholders with the VAST production profile.
+  - path: patch-dpf-profile.yaml
+  # Keep DOCA service template versions at the overlay boundary.
+  - path: patch-doca-template-versions.yaml

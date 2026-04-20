@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored child-cluster addon resources that complement the operator charts rendered from values.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # ApplicationSet that attaches this addon stack to matching registered child clusters.
+  - applicationset
+  # Namespaces created before child-cluster addon operators are installed.
+  - namespaces
+  # Singleton child-cluster custom resources for KubeVirt, CDI, and GPU operator.
+  - platform-core
+  # DPF control-plane objects for the child-cluster DPU stack.
+  - dpf
+  # Explicit HBN / OVN networking layer separated from the generic DPU services layer.
+  - hbn
+  # Reusable DPU service templates, configurations, and deployments.
+  - dpu-services
+  # Multus secondary-network control plane and example NetworkAttachmentDefinitions.
+  - multus
+  # SR-IOV operator, device-plugin configuration, and example VF policy resources.
+  - sriov

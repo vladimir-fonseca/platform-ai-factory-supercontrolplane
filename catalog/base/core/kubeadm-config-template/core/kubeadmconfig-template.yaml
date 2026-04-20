@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable kubeadm worker bootstrap template referenced by the ClusterClass.
+
+
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+kind: KubeadmConfigTemplate
+# Reusable kubeadm worker bootstrap template.
+metadata:
+  # Reusable worker bootstrap template.
+  name: nvidia-ai-worker-bootstrap-template
+  namespace: fleet
+# Desired kubeadm bootstrap template content.
+spec:
+  # Template body reused for each worker instance.
+  template:
+    spec:
+      joinConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            cgroup-driver: systemd
+
+      # Example preKubeadmCommands area for NVIDIA prep or OS tuning.
+      preKubeadmCommands:
+        - sysctl -w vm.max_map_count=262144
+        - modprobe vfio-pci || true

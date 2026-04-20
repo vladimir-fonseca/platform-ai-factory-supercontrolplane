@@ -1,0 +1,43 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPF control-plane object applied to child clusters that use the NVIDIA DPU stack.
+
+
+apiVersion: provisioning.dpu.nvidia.com/v1alpha1
+kind: DPUSet
+# Desired set of DPU nodes managed under the DPF control plane.
+metadata:
+  # Selects which DPU-capable hosts are provisioned and updated by this policy.
+  name: dpu-set-a
+  namespace: dpf-operator-system
+# Desired DPU membership and placement behavior.
+spec:
+  nodeSelector:
+    matchLabels:
+      # Your child-cluster nodes must carry this label for the DPUSet to match.
+      dpf.nvidia.com/enabled: "true"
+
+  # BFB object used for DPU provisioning.
+  bfb:
+    name: bf-bundle-prod
+
+  strategy:
+    rollingUpdate:
+      # Conservative rollout to reduce blast radius because DPU updates may affect networking and host availability.
+      maxUnavailable: 1
+
+  # Conservative fallback for the shared base.
+  # Environment overlays should replace this with a family- and site-oriented profile name
+  # that maps to the actual DPF flavor definition used in the target release.
+  dpuFlavor: default

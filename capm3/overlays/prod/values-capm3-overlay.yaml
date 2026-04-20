@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Overlay-specific Helm values for the CAPM3 provider.
+# This overlay owns the controller image pin so environment-specific release control stays out of the shared base.
+
+
+controller:
+  image:
+    # Replace with the exact controller image validated for the environment.
+    repository: registry.example.com/platform/capm3-controller
+    tag: v1.10.0
+ironicInspector:
+  image:
+    # Replace with the exact inspector image validated for the environment.
+    repository: registry.example.com/platform/ironic-inspector
+    tag: v1.10.0

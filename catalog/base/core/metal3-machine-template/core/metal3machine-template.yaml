@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable Metal3 worker-machine infrastructure template referenced by the ClusterClass.
+
+
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: Metal3MachineTemplate
+# Reusable Metal3 machine template for worker nodes.
+metadata:
+  # Reusable worker-machine infrastructure template.
+  name: nvidia-ai-worker-machine-template
+  namespace: fleet
+# Desired infrastructure settings for worker machines.
+spec:
+  # Template body reused by worker-machine deployments.
+  template:
+    spec:
+      # This hostSelector is a key part of the golden-path pattern:
+      # it constrains worker machines to inventory that matches the
+      # intended service profile or hardware family.
+      hostSelector:
+        matchLabels:
+          platform-profile: nvidia-ai
+
+      # Example image source placeholder. Replace to match your real node image.
+      image:
+        url: "https://images.example.com/capi/worker-node.qcow2"
+        checksum: "http://images.example.com/capi/worker-node.qcow2.sha256"
+
+      # Replace with your real BMC credential secret strategy.
+      automatedCleaningMode: metadata

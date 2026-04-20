@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the management-cluster Kyverno layer.
+# Keep authored policy resources under `base/core/` and Helm values under `base/values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Install the namespace and policy resources alongside the chart.
+  - core
+helmCharts:
+  # Render Kyverno directly from Git so the policy-engine install remains explicit.
+  - name: kyverno
+    # Helm release name used for rendered resource ownership.
+    releaseName: kyverno
+    # Namespace where Kyverno controllers land.
+    namespace: kyverno
+    # Upstream chart repository for Kyverno.
+    repo: https://kyverno.github.io/kyverno/
+    # Pin the chart version for reproducible reconciliations.
+    version: 3.5.1
+    # Git-tracked values for the Kyverno installation.
+    valuesFile: values/values-kyverno.yaml

@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable Metal3 cluster infrastructure template referenced by the ClusterClass.
+
+
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: Metal3ClusterTemplate
+# Reusable Metal3 cluster infrastructure template.
+metadata:
+  # Reusable infrastructure template for child clusters.
+  name: nvidia-ai-baremetal-cluster-template
+  namespace: fleet
+# Desired network and infrastructure settings for Metal3-managed clusters.
+spec:
+  # Template body reused by clusters created from this class.
+  template:
+    spec:
+      # Use a routable placeholder DNS name instead of the RFC 5737 TEST-NET address.
+      # Replace this with the real control-plane VIP or a site-specific DNS name before deployment.
+      controlPlaneEndpoint:
+        host: api-vip.platform.example.com
+        port: 6443
+
+      # Example "no cloud provider" mode placeholder.
+      noCloudProvider: true

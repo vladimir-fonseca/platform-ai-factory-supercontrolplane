@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the management-cluster Cilium layer.
+# Keep authored resources under `base/core/` and chart values under `base/values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # This layer currently has no authored Kubernetes objects beyond the chart install.
+  - core
+helmCharts:
+  # Render Cilium directly from Git so management-plane networking intent is explicit and reviewable.
+  - name: cilium
+    # Helm release name used for rendered resource ownership.
+    releaseName: cilium
+    # Namespace where the management-cluster Cilium resources land.
+    namespace: kube-system
+    # Upstream chart repository for Cilium.
+    repo: https://helm.cilium.io/
+    # Pin the chart version for reproducible installs.
+    version: 1.19.2
+    # Git-tracked values for this management-cluster Cilium install.
+    valuesFile: values/values-cilium.yaml

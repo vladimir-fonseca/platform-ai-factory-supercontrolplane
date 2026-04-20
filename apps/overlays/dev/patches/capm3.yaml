@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # Argo CD Application patch defined in Git for this package.
+  name: capm3
+  namespace: argocd
+spec:
+  source:
+    # Site-specific path rendered by this Application.
+    path: capm3/overlays/dev
+  destination:
+    # Target Kubernetes API server for this Application.
+    server: https://kubernetes.default.svc
+    # Namespace where the Application object or managed resources live.
+    namespace: capm3-system

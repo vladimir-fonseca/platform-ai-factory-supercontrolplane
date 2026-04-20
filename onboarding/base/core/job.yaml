@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Onboarding job that executes the registration logic for newly created child clusters.
+
+
+apiVersion: batch/v1
+kind: Job
+# One-shot onboarding or bootstrap job.
+metadata:
+  # Example one-shot job that performs Argo CD cluster registration from child-cluster kubeconfig secrets.
+  name: argocd-cluster-register
+  namespace: argocd
+# Desired execution behavior for this job.
+spec:
+  # Pod template that runs the job workload.
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccountName: argocd-cluster-register
+      # Containers executed by the job pod.
+      containers:
+        - name: register
+          # Use a kubectl image because the registration flow is implemented as Kubernetes API operations.
+          image: bitnami/kubectl:1.33.4
+          command: ["/bin/sh", "/script/register.sh"]
+          env:
+            # Namespace where Cluster API writes child-cluster kubeconfig secrets.
+            - name: SOURCE_NAMESPACE
+              value: fleet
+            # Namespace where Argo CD expects cluster registration secrets.
+            - name: TARGET_NAMESPACE
+              value: argocd
+          # Mount script or configuration content into the job container.
+          volumeMounts:
+            - name: script
+              mountPath: /script
+      # Volumes provided to the job pod at runtime.
+      volumes:
+        - name: script
+          configMap:
+            name: argocd-cluster-register-script
+            defaultMode: 0755

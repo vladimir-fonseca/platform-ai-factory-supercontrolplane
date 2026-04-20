@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored Multus CRD and example NetworkAttachmentDefinition objects.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - network-attachment-definition-crd.yaml
+  - networkattachmentdefinition-mgmt-sriov.yaml
+  - networkattachmentdefinition-tenant-a-sriov.yaml
+  - networkattachmentdefinition-tenant-b-sriov.yaml

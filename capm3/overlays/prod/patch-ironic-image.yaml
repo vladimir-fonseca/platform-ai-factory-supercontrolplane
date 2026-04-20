@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch the Ironic deployment image in the overlay so the validated controller/runtime image pin lives at the overlay boundary.
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ironic
+  namespace: capm3-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: ironic
+          image: registry.example.com/platform/ironic:1.10.0

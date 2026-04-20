@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Overlay that switches the shared POSIX path from the generic backend to a WEKA-backed virtio-fs presentation.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Start from the base child-cluster NVIDIA AI stack.
+  - ../../base
+patches:
+  # Replace the generic SNAP virtio-fs service configuration with WEKA-specific client settings.
+  - path: patch-snap-virtiofs-weka.yaml

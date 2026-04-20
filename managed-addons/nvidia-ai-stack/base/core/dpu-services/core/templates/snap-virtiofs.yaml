@@ -1,0 +1,60 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable DPU service template referenced by child-cluster DPU deployments.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceTemplate
+# Reusable DPU service template referenced by deployment compositions.
+metadata:
+  # SNAP shared-filesystem service template.
+  name: snap-virtiofs
+  namespace: dpf-operator-system
+# Desired service-container and network/storage wiring for a DPU function.
+spec:
+  deploymentServiceName: snap-virtiofs
+  helmChart:
+    source:
+      repoURL: https://helm.ngc.nvidia.com/nvidia/doca
+      chart: doca-snap
+      version: 1.0.0
+    values:
+      # Expose a shared filesystem path through virtio-fs semantics.
+      mode: virtiofs
+
+      # Keep the service on BlueField ARM worker nodes only.
+      serviceDaemonSet:
+        nodeSelector:
+          kubernetes.io/arch: arm64
+
+        # Tolerate infrastructure taints commonly used on DPU-facing nodes.
+        tolerations:
+          - operator: Exists
+
+        # Performance-oriented defaults. Adjust to your exact DPU core budget.
+        resources:
+          requests:
+            cpu: "4"
+            memory: 8Gi
+          limits:
+            cpu: "4"
+            memory: 8Gi
+
+      performance:
+        # Pin service execution to ARM cores on the DPU-side worker footprint.
+        cpuPinning: true
+        # Reserve dedicated worker cores for the virtio-fs data path.
+        dedicatedCores: 4
+        # Keep IRQ and worker execution local when the chart/runtime supports it.
+        irqAffinity: true

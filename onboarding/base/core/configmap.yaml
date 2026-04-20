@@ -1,0 +1,101 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# ConfigMap that stores the onboarding script used to register newly created child clusters back into Argo CD.
+
+
+apiVersion: v1
+kind: ConfigMap
+# ConfigMap that stores script content or configuration for the layer.
+metadata:
+  # Registration script consumed by the onboarding job.
+  name: argocd-cluster-register-script
+  namespace: argocd
+# Inline configuration or script data consumed by controllers or jobs.
+data:
+  register.sh: |
+    #!/usr/bin/env sh
+    set -eu
+
+    SOURCE_NAMESPACE="${SOURCE_NAMESPACE:-fleet}"
+    TARGET_NAMESPACE="${TARGET_NAMESPACE:-argocd}"
+
+    # Discover kubeconfig secrets created for Cluster API child clusters.
+    SECRET_NAMES="$(kubectl get secrets -n "${SOURCE_NAMESPACE}" -l 'cluster.x-k8s.io/cluster-name' -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | grep -- '-kubeconfig$' || true)"
+
+    if [ -z "${SECRET_NAMES}" ]; then
+      echo "No child-cluster kubeconfig secrets found in namespace ${SOURCE_NAMESPACE}."
+      exit 0
+    fi
+
+    for SECRET_NAME in ${SECRET_NAMES}; do
+      CLUSTER_NAME="$(kubectl get secret "${SECRET_NAME}" -n "${SOURCE_NAMESPACE}" -o jsonpath='{.metadata.labels.cluster\.x-k8s\.io/cluster-name}')"
+      if [ -z "${CLUSTER_NAME}" ]; then
+        echo "Skipping ${SECRET_NAME}: cluster.x-k8s.io/cluster-name label is missing."
+        continue
+      fi
+
+      KUBECONFIG_B64="$(kubectl get secret "${SECRET_NAME}" -n "${SOURCE_NAMESPACE}" -o jsonpath='{.data.value}' 2>/dev/null || true)"
+      if [ -z "${KUBECONFIG_B64}" ]; then
+        KUBECONFIG_B64="$(kubectl get secret "${SECRET_NAME}" -n "${SOURCE_NAMESPACE}" -o jsonpath='{.data.kubeconfig}' 2>/dev/null || true)"
+      fi
+      if [ -z "${KUBECONFIG_B64}" ]; then
+        echo "Skipping ${SECRET_NAME}: no kubeconfig data found in .data.value or .data.kubeconfig."
+        continue
+      fi
+
+      KUBECONFIG="$(printf '%s' "${KUBECONFIG_B64}" | base64 -d)"
+      SERVER="$(printf '%s\n' "${KUBECONFIG}" | awk '/server: /{print $2; exit}')"
+      CA_DATA="$(printf '%s\n' "${KUBECONFIG}" | awk '/certificate-authority-data: /{print $2; exit}')"
+      CLIENT_CERT_DATA="$(printf '%s\n' "${KUBECONFIG}" | awk '/client-certificate-data: /{print $2; exit}')"
+      CLIENT_KEY_DATA="$(printf '%s\n' "${KUBECONFIG}" | awk '/client-key-data: /{print $2; exit}')"
+      TOKEN="$(printf '%s\n' "${KUBECONFIG}" | awk '/token: /{print $2; exit}')"
+
+      if [ -z "${SERVER}" ]; then
+        echo "Skipping ${SECRET_NAME}: kubeconfig does not contain a server endpoint."
+        continue
+      fi
+
+      ENVIRONMENT="$(kubectl get cluster "${CLUSTER_NAME}" -n "${SOURCE_NAMESPACE}" -o jsonpath='{.metadata.labels.environment}' 2>/dev/null || true)"
+      GPU_FAMILY="$(kubectl get cluster "${CLUSTER_NAME}" -n "${SOURCE_NAMESPACE}" -o jsonpath='{.metadata.labels.gpu-family\.nvidia\.com/name}' 2>/dev/null || true)"
+      [ -n "${ENVIRONMENT}" ] || ENVIRONMENT="prod"
+
+      if [ -n "${TOKEN}" ]; then
+        CONFIG_JSON="$(printf '{"bearerToken":"%s","tlsClientConfig":{"caData":"%s","insecure":false}}' "${TOKEN}" "${CA_DATA}")"
+      else
+        CONFIG_JSON="$(printf '{"tlsClientConfig":{"caData":"%s","certData":"%s","keyData":"%s","insecure":false}}' "${CA_DATA}" "${CLIENT_CERT_DATA}" "${CLIENT_KEY_DATA}")"
+      fi
+
+      cat <<EOF | kubectl apply -f -
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: cluster-${CLUSTER_NAME}
+        namespace: ${TARGET_NAMESPACE}
+        labels:
+          argocd.argoproj.io/secret-type: cluster
+          platform-profile: nvidia-ai
+          environment: ${ENVIRONMENT}
+      type: Opaque
+      stringData:
+        name: ${CLUSTER_NAME}
+        server: ${SERVER}
+        config: ${CONFIG_JSON}
+      EOF
+
+      if [ -n "${GPU_FAMILY}" ]; then
+        kubectl label secret "cluster-${CLUSTER_NAME}" -n "${TARGET_NAMESPACE}" "gpu-family.nvidia.com/name=${GPU_FAMILY}" --overwrite
+      fi
+
+      echo "Registered child cluster ${CLUSTER_NAME} into Argo CD namespace ${TARGET_NAMESPACE}."
+    done

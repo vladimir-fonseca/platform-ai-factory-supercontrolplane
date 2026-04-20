@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the Cluster API management-plane layer.
+# Keep authored namespace resources under `base/core/` and chart values under `base/values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Create namespaces before rendering the provider chart.
+  - core
+helmCharts:
+  # Render the Cluster API provider bundle directly from Git.
+  - name: cluster-api
+    # Helm release name used for rendered resource ownership.
+    releaseName: cluster-api
+    # Namespace where the Cluster API controllers land.
+    namespace: capi-system
+    # Chart registry that hosts the Cluster API package used by this platform.
+    repo: oci://registry.example.com/platform/charts
+    # Pin the chart version for reproducible reconciliations.
+    version: 1.12.0
+    # Git-tracked values for the Cluster API installation.
+    valuesFile: values/values-cluster-api.yaml

@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Helm values for the child-cluster SR-IOV Network Operator.
+
+
+namespace: sriov-system
+operator:
+  # Keep the SR-IOV operator on worker infrastructure by default.
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+sriovOperatorConfig:
+  configDaemonNodeSelector:
+    node-role.kubernetes.io/worker: ""

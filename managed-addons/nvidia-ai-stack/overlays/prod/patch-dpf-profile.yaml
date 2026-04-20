@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch that replaces the shared-base DPF sizing and flavor placeholders with a
+# family- and site-oriented example profile for the `prod` overlay.
+
+
+apiVersion: provisioning.dpu.nvidia.com/v1alpha1
+kind: DPUCluster
+metadata:
+  # Patch the shared DPU cluster object rather than introducing a second object.
+  name: dpu-cluster-a
+  namespace: dpf-operator-system
+spec:
+  # General production profile aligned to Blackwell-class scale targets.
+  maxNodes: 32
+---
+# Patch that replaces the shared-base DPU flavor placeholder with the `blackwell-prod` example profile.
+apiVersion: provisioning.dpu.nvidia.com/v1alpha1
+kind: DPUSet
+metadata:
+  # Patch the shared DPU set object rather than introducing a second object.
+  name: dpu-set-a
+  namespace: dpf-operator-system
+spec:
+  # Replace this example with the exact DPF flavor name validated for the release you deploy.
+  dpuFlavor: blackwell-prod

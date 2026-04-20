@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored Kyverno resources that define the management-cluster policy layer.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Namespace for Kyverno itself.
+  - namespace.yaml
+  # Baseline namespace pod-security policy.
+  - policies/00-namespace-pod-security.yaml
+  # Require standard ownership and environment labels on managed resources.
+  - policies/01-require-standard-labels.yaml
+  # Restrict images to approved registries.
+  - policies/02-restrict-image-registries.yaml
+  # Require immutable image digests where policy demands it.
+  - policies/03-require-image-digests.yaml
+  # Require resource requests and limits.
+  - policies/05-require-requests-limits.yaml
+  # Restrict privileged pods.
+  - policies/06-restrict-privileged-pods.yaml
+  # Restrict host namespaces and hostPath mounts.
+  - policies/07-restrict-host-namespaces-and-hostpath.yaml
+  # Require seccomp and non-root settings.
+  - policies/08-require-seccomp-and-runasnonroot.yaml
+  # Require NetworkPolicy coverage in managed namespaces.
+  - policies/09-require-networkpolicy-in-namespaces.yaml
+  # Generate Argo CD child-cluster registration secrets from child kubeconfig secrets.
+  - policies/10-generate-argocd-cluster-secret-from-child-kubeconfig.yaml

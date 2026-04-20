@@ -1,0 +1,48 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # Argo CD Application object defined in Git for this package.
+  name: catalog
+  namespace: argocd
+  annotations:
+    # Roll out this Application in a controlled order.
+    argocd.argoproj.io/sync-wave: "-5"
+spec:
+  # Use the package-specific Argo CD project instead of the default project.
+  project: ai-nvidia
+  source:
+    # Git repo that holds the desired state for this Application.
+    repoURL: https://git.example.com/platform-ai-factory-supercontrolplane.git
+    # Git revision to follow for reconciliation.
+    targetRevision: main
+    # Path inside the repo that Argo CD will render and apply.
+    path: catalog/overlays/prod
+  destination:
+    # Target Kubernetes API server for this Application.
+    server: https://kubernetes.default.svc
+    # Namespace where the Application object or managed resources live.
+    namespace: fleet
+  syncPolicy:
+    automated:
+      # Delete managed resources that were removed from Git.
+      prune: true
+      # Automatically correct drift between Git and the live cluster.
+      selfHeal: true
+    syncOptions:
+      # Create target namespaces automatically if missing.
+      - CreateNamespace=true
+      # Prefer server-side apply for larger or more complex objects.
+      - ServerSideApply=true

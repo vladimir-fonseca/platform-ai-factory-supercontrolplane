@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPU deployment composition for the generic host-trusted storage profile.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUDeployment
+metadata:
+  # Deployment object that binds the generic host-trusted services into the selected DPU cluster and DPU set.
+  name: dpu-deployment-host-trusted
+  namespace: dpf-operator-system
+spec:
+  # Target the DPU cluster that runs this deployment profile.
+  dpuCluster:
+    name: dpu-cluster-a
+  # Associate the deployment profile with the provisioned DPU set.
+  dpuSets:
+    - name: dpu-set-a
+  services:
+    # Provide the generic SNAP block service for block exposure.
+    - template:
+        name: snap-block
+      configuration:
+        name: snap-block
+    # Provide the shared virtio-fs service for POSIX-style file sharing.
+    - template:
+        name: snap-virtiofs
+      configuration:
+        name: snap-virtiofs

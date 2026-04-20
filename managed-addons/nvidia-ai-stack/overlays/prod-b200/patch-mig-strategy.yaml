@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Patch that keeps the Blackwell production posture on full GPUs until a workload-qualified MIG geometry is chosen.
+
+
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  # Patch the shared GPU operator ClusterPolicy object rather than creating a second policy.
+  name: gpu-cluster-policy
+spec:
+  # Keep full GPU presentation as the production-safe default for B200-class clusters.
+  mig:
+    strategy: none
+  migManager:
+    # Enable the manager so the cluster can adopt a validated MIG geometry later without changing the control path.
+    enabled: true

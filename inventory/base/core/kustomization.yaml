@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored BareMetalHost inventory managed by the super-control-plane.
+# This top-level core folder composes child modules, each of which follows the same `core/values` pattern.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Namespace that scopes inventory objects owned by the management plane.
+  - namespace
+  # Hopper-class inventory such as H100 systems.
+  - hopper
+  # Blackwell-class inventory such as B200 systems.
+  - blackwell
+  # Blackwell Ultra-class inventory such as GB200 systems.
+  - blackwell-ultra

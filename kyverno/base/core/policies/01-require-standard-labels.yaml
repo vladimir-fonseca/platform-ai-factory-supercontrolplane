@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Kyverno policy in the management cluster policy layer.
+
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+# Singleton Kyverno or GPU policy object depending on the API group.
+metadata:
+  name: require-standard-labels
+# Desired policy behavior enforced by the controller.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  # Policy rules evaluated against matching resources.
+  rules:
+    - name: require-owner-and-data-labels
+      # Resource match criteria for the rule.
+      match:
+        any:
+          - resources:
+              kinds: ["Deployment","StatefulSet","DaemonSet","Job","CronJob","Pod"]
+      # Resource exclusions that should not trigger the rule.
+      exclude:
+        any:
+          - resources:
+              namespaces: ["kube-system","kyverno","argocd"]
+      # Validation behavior enforced by the policy rule.
+      validate:
+        message: "Workloads must declare owner, environment, and data-sensitivity labels."
+        pattern:
+          metadata:
+            labels:
+              owner: "?*"
+              environment: "?*"
+              data-sensitivity: "?*"

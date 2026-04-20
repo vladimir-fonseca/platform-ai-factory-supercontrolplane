@@ -1,0 +1,9 @@
+# Canonical expected DPF-related CRDs after child-cluster DPF operator installation
+
+dpfoperatorconfigs.operator.dpu.nvidia.com
+dpuclusters.provisioning.dpu.nvidia.com
+bfbs.provisioning.dpu.nvidia.com
+dpusets.provisioning.dpu.nvidia.com
+dpuservicetemplates.svc.dpu.nvidia.com
+dpuserviceconfigurations.svc.dpu.nvidia.com
+dpudeployments.svc.dpu.nvidia.com

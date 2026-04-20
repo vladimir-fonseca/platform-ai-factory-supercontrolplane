@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored SR-IOV resources that complement the chart installs in child clusters.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Device plugin configuration that maps SR-IOV resources into Kubernetes resource names.
+  - sriov-device-plugin-config.yaml
+  # Node policy for the management PF.
+  - sriov-network-node-policy-mgmt.yaml
+  # Node policy for the tenant-a PF.
+  - sriov-network-node-policy-tenant-a.yaml
+  # Node policy for the tenant-b PF.
+  - sriov-network-node-policy-tenant-b.yaml

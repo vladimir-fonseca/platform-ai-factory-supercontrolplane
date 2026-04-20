@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Concrete DPU service configuration that parameterizes a reusable service template.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceConfiguration
+# Concrete configuration instance for a DPU service template.
+metadata:
+  # Backend-neutral runtime config for shared POSIX filesystem presentation.
+  name: snap-virtiofs
+  namespace: dpf-operator-system
+# Desired runtime parameters for this DPU service.
+spec:
+  deploymentServiceName: snap-virtiofs
+  serviceConfiguration:
+    storage:
+      mode: virtiofs
+      backend: nfs
+
+      # Backend overlay should replace these generic NFS values.
+      nfsServer: posix-nfs-vip.storage.example.com
+      nfsExportPath: /shared/ai

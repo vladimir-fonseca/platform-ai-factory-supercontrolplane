@@ -1,0 +1,32 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceConfiguration
+# Concrete configuration instance for a DPU service template.
+metadata:
+  name: snap-virtiofs
+  namespace: dpf-operator-system
+# Desired runtime parameters for this DPU service.
+spec:
+  serviceConfiguration:
+    storage:
+      # VAST NFS endpoint for the shared POSIX path.
+      nfsServer: vast-nfs-vip.storage.example.com
+      nfsExportPath: /vast/ai/shared
+
+      # Multipath client behavior. Validate the exact mount option support in
+      # the service chart / container image for your environment.
+      mountOptions:
+        - vers=3
+        - remoteports=dns

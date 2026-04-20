@@ -1,0 +1,62 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Concrete DPU service configuration that parameterizes a reusable service template.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUServiceConfiguration
+# Concrete configuration instance for a DPU service template.
+metadata:
+  # Runtime configuration for the HBN service.
+  name: hbn
+  namespace: dpf-operator-system
+# Desired runtime parameters for this DPU service.
+spec:
+  deploymentServiceName: hbn
+  serviceConfiguration:
+    serviceDaemonSet:
+      annotations:
+        # Example DPU-side network attachment. Replace with the actual network
+        # object required in your environment.
+        k8s.v1.cni.cncf.io/networks: |
+          [
+            { "name": "dpu-mgmt" }
+          ]
+
+    # Explicit OVS/DPDK configuration for the DPU side.
+    # Review carefully against the exact NVIDIA HBN RDG and your interface names.
+    hbnConfig:
+      ovs:
+        rawConfigScript: |
+          _ovs-vsctl() {
+            ovs-vsctl --no-wait --timeout 15 "$@"
+          }
+          _ovs-vsctl set Open_vSwitch . other_config:doca-init=true
+          _ovs-vsctl set Open_vSwitch . other_config:dpdk-max-memzones=50000
+          _ovs-vsctl set Open_vSwitch . other_config:hw-offload=true
+          _ovs-vsctl set Open_vSwitch . other_config:pmd-quiet-idle=true
+          _ovs-vsctl set Open_vSwitch . other_config:max-idle=20000
+          _ovs-vsctl set Open_vSwitch . other_config:max-revalidator=5000
+          _ovs-vsctl --may-exist add-br br-sfc
+          _ovs-vsctl set bridge br-sfc datapath_type=netdev
+          _ovs-vsctl set bridge br-sfc fail_mode=secure
+          _ovs-vsctl --may-exist add-port br-sfc p0
+          _ovs-vsctl set Interface p0 type=dpdk
+          _ovs-vsctl set Interface p0 mtu_request=9216
+          _ovs-vsctl --may-exist add-port br-sfc p1
+          _ovs-vsctl set Interface p1 type=dpdk
+          _ovs-vsctl set Interface p1 mtu_request=9216
+          _ovs-vsctl --may-exist add-br br-hbn
+          _ovs-vsctl set bridge br-hbn datapath_type=netdev
+          _ovs-vsctl set bridge br-hbn fail_mode=secure

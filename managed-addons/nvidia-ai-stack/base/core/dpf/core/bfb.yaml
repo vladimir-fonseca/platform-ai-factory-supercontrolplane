@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPF control-plane object applied to child clusters that use the NVIDIA DPU stack.
+
+
+apiVersion: provisioning.dpu.nvidia.com/v1alpha1
+kind: BFB
+# BlueField boot image reference used when provisioning or reconciling DPUs.
+metadata:
+  # BlueField bootstream bundle reference.
+  name: bf-bundle-prod
+  namespace: dpf-operator-system
+# Desired BFB artifact source and lifecycle behavior.
+spec:
+  # Replace with the exact validated BFB for your BlueField generation,
+  # host OS, and DPF release.
+  url: https://content.mellanox.com/BlueField/BFBs/Ubuntu24.04/bf-bundle-3.2.1-34_25.11_ubuntu-24.04_64k_prod.bfb

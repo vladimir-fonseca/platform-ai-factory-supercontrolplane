@@ -1,0 +1,49 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Example child-cluster object created from the reusable ClusterClass in this package.
+
+
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: Cluster
+# Child-cluster object managed by Cluster API.
+metadata:
+  name: gb200-lab
+  namespace: fleet
+  # Labels used for lifecycle grouping and addon targeting.
+  labels:
+    platform-profile: nvidia-ai
+    gpu-family.nvidia.com/name: "gb200"
+# Desired child-cluster topology and version.
+spec:
+  # Managed topology definition that references a ClusterClass.
+  topology:
+    class: nvidia-ai-baremetal
+    version: "v1.33.10"
+    # Control-plane scaling settings for the child cluster.
+    controlPlane:
+      replicas: 1
+    # Worker-machine deployment settings for the child cluster.
+    workers:
+      # Worker pools created from the ClusterClass templates.
+      machineDeployments:
+        - class: gpu-workers
+          name: workers
+          replicas: 2
+    variables:
+      - name: kubernetesVersion
+        value: "v1.33.10"
+      - name: controlPlaneReplicas
+        value: 1
+      - name: workerReplicas
+        value: 2

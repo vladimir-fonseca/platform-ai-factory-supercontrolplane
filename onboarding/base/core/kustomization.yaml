@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Authored onboarding resources that register new child clusters back into the GitOps control plane.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Service account used by the onboarding job.
+  - serviceaccount.yaml
+  # Namespaced RBAC role granted to the onboarding automation in argocd.
+  - role.yaml
+  # Binding that grants the onboarding service account the argocd role.
+  - rolebinding.yaml
+  # Fleet-namespace role that allows the onboarding job to read child-cluster kubeconfig secrets and Cluster API labels.
+  - fleet-read-role.yaml
+  # Binding that grants the onboarding service account the fleet-read role.
+  - fleet-read-rolebinding.yaml
+  # ConfigMap that stores the onboarding registration script.
+  - configmap.yaml
+  # One-shot onboarding job that executes the registration logic.
+  - job.yaml

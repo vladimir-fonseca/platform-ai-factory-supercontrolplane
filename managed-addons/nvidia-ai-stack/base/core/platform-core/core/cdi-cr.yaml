@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Singleton CDI custom resource applied to onboarded child clusters.
+
+
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: CDI
+# Singleton CDI custom resource that enables image import, clone, and upload workflows.
+metadata:
+  # Singleton CDI control-plane object.
+  name: cdi
+spec: {}

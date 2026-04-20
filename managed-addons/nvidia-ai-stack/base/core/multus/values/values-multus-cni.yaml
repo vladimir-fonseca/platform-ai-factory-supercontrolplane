@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Helm values for the child-cluster Multus deployment.
+# Install Multus as a secondary-network control plane for pods and KubeVirt VMs.
+
+
+namespaceOverride: multus-system
+multus:
+  # Use the thicker deployment mode that installs Multus components in-cluster.
+  cniConf:
+    confDir: /host/etc/cni/net.d
+    binDir: /host/opt/cni/bin
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+config:
+  cni_conf:
+    confDir: /host/etc/cni/net.d
+    binDir: /host/opt/cni/bin

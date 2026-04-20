@@ -1,0 +1,339 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="830" viewBox="0 0 1200 830"
+     font-family="'Segoe UI','Inter',system-ui,sans-serif">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="context-stroke" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <filter id="s" x="-3%" y="-5%" width="106%" height="118%">
+    <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#00000018"/>
+  </filter>
+</defs>
+
+<!-- ── page ─────────────────────────────────────────── -->
+<rect width="1200" height="830" fill="#F0EEE9"/>
+
+<!-- ── title ─────────────────────────────────────────── -->
+<rect x="0" y="0" width="1200" height="52" fill="#1A1033"/>
+<text x="600" y="19" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF" dominant-baseline="central" letter-spacing="0.3">platform-supercontrolplane-oss-nvidia-capi</text>
+<text x="600" y="38" text-anchor="middle" font-size="10.5" font-weight="400" fill="#9B8EC4" dominant-baseline="central">open-source super control plane for NVIDIA AI bare-metal · one management plane · declarative fleet lifecycle · central GitOps</text>
+
+<!-- ════════════════════════════════════════════════════
+     SUPER CONTROL PLANE  (left, x=20..490)
+════════════════════════════════════════════════════ -->
+<rect x="20" y="60" width="470" height="644" rx="16" fill="#EAE8F8" stroke="#534AB7" stroke-width="1.6" filter="url(#s)"/>
+<text x="255" y="79" text-anchor="middle" font-size="10" font-weight="700" fill="#534AB7" letter-spacing="1.2" dominant-baseline="central">SUPER CONTROL PLANE</text>
+
+<!-- Bootstrap -->
+<rect x="38" y="90" width="434" height="40" rx="7" fill="#D3D1C7" stroke="#888780" stroke-width="0.8" filter="url(#s)"/>
+<text x="255" y="104" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2C2C2A" dominant-baseline="central">Bootstrap</text>
+<text x="255" y="120" text-anchor="middle" font-size="9.5" fill="#5F5E5A" dominant-baseline="central">kubectl apply bootstrap/&lt;site&gt;/root-application.yaml</text>
+
+<!-- wave arrow -->
+<line x1="255" y1="130" x2="255" y2="142" stroke="#888780" stroke-width="1" marker-end="url(#a)"/>
+
+<!-- Argo CD -->
+<rect x="38" y="144" width="434" height="44" rx="7" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.8" filter="url(#s)"/>
+<text x="230" y="159" text-anchor="middle" font-size="12" font-weight="700" fill="#04342C" dominant-baseline="central">Argo CD</text>
+<text x="230" y="176" text-anchor="middle" font-size="9.5" fill="#085041" dominant-baseline="central">GitOps reconciler · prune + selfHeal</text>
+<text x="460" y="166" text-anchor="end" font-size="9" fill="#0F6E56" dominant-baseline="central">always-on</text>
+
+<!-- Cilium mgmt  wave -30 -->
+<rect x="38" y="198" width="434" height="40" rx="7" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8" filter="url(#s)"/>
+<text x="230" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium</text>
+<text x="230" y="228" text-anchor="middle" font-size="9.5" fill="#0F6E56" dominant-baseline="central">management CNI · Hubble UI + Relay</text>
+<text x="460" y="218" text-anchor="end" font-size="9" fill="#0F6E56" dominant-baseline="central">−30</text>
+
+<!-- CAPI  -20  |  CAPM3 / Metal3  -15 -->
+<rect x="38"  y="248" width="210" height="44" rx="7" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.8" filter="url(#s)"/>
+<text x="143" y="263" text-anchor="middle" font-size="11.5" font-weight="700" fill="#26215C" dominant-baseline="central">Cluster API</text>
+<text x="143" y="279" text-anchor="middle" font-size="9.5" fill="#3C3489" dominant-baseline="central">kubeadm providers</text>
+<text x="236" y="266" text-anchor="end" font-size="9" fill="#534AB7" dominant-baseline="central">−20</text>
+
+<rect x="262" y="248" width="210" height="44" rx="7" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.8" filter="url(#s)"/>
+<text x="367" y="263" text-anchor="middle" font-size="11.5" font-weight="700" fill="#26215C" dominant-baseline="central">CAPM3 / Metal3</text>
+<text x="367" y="279" text-anchor="middle" font-size="9.5" fill="#3C3489" dominant-baseline="central">bare-metal infra</text>
+<text x="460" y="266" text-anchor="end" font-size="9" fill="#534AB7" dominant-baseline="central">−15</text>
+
+<!-- Inventory  -10  |  Catalog  -5 -->
+<rect x="38"  y="302" width="210" height="44" rx="7" fill="#FAC775" stroke="#BA7517" stroke-width="0.8" filter="url(#s)"/>
+<text x="143" y="317" text-anchor="middle" font-size="11.5" font-weight="700" fill="#412402" dominant-baseline="central">Inventory</text>
+<text x="143" y="333" text-anchor="middle" font-size="9.5" fill="#633806" dominant-baseline="central">H100 · B200 · GB200</text>
+<text x="236" y="320" text-anchor="end" font-size="9" fill="#BA7517" dominant-baseline="central">−10</text>
+
+<rect x="262" y="302" width="210" height="44" rx="7" fill="#FAC775" stroke="#BA7517" stroke-width="0.8" filter="url(#s)"/>
+<text x="367" y="317" text-anchor="middle" font-size="11.5" font-weight="700" fill="#412402" dominant-baseline="central">Catalog</text>
+<text x="367" y="333" text-anchor="middle" font-size="9.5" fill="#633806" dominant-baseline="central">ClusterClass templates</text>
+<text x="460" y="320" text-anchor="end" font-size="9" fill="#BA7517" dominant-baseline="central">−5</text>
+
+<!-- Kyverno  -3  (kyverno variant only) -->
+<rect x="38" y="356" width="434" height="40" rx="7" fill="#FAECE7" stroke="#993C1D" stroke-width="1.3" stroke-dasharray="6 3" filter="url(#s)"/>
+<text x="210" y="370" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A1B0C" dominant-baseline="central">Kyverno</text>
+<text x="210" y="386" text-anchor="middle" font-size="9.5" fill="#712B13" dominant-baseline="central">policy engine · 10 policies</text>
+<rect x="344" y="362" width="122" height="16" rx="4" fill="#F5C4B3"/>
+<text x="405" y="370" text-anchor="middle" font-size="8.5" font-weight="700" fill="#4A1B0C" dominant-baseline="central">† kyverno variant only</text>
+<text x="460" y="376" text-anchor="end" font-size="9" fill="#993C1D" dominant-baseline="central">−3</text>
+
+<!-- Onboarding  0 -->
+<rect x="38" y="406" width="434" height="40" rx="7" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.8" filter="url(#s)"/>
+<text x="230" y="420" text-anchor="middle" font-size="11.5" font-weight="700" fill="#04342C" dominant-baseline="central">Onboarding</text>
+<text x="230" y="436" text-anchor="middle" font-size="9.5" fill="#0F6E56" dominant-baseline="central">kubeconfig → Argo CD cluster secret · platform-profile=nvidia-ai</text>
+<text x="460" y="426" text-anchor="end" font-size="9" fill="#0F6E56" dominant-baseline="central">0</text>
+
+<!-- ApplicationSet  wave 0 -->
+<rect x="38" y="456" width="434" height="44" rx="7" fill="#97C459" stroke="#3B6D11" stroke-width="0.8" filter="url(#s)"/>
+<text x="255" y="471" text-anchor="middle" font-size="12" font-weight="700" fill="#173404" dominant-baseline="central">ApplicationSet fan-out</text>
+<text x="255" y="487" text-anchor="middle" font-size="9.5" fill="#27500A" dominant-baseline="central">one Application per child cluster · HTTPS :6443</text>
+<text x="460" y="476" text-anchor="end" font-size="9" fill="#3B6D11" dominant-baseline="central">−2</text>
+
+<!-- sync-wave label -->
+<text x="42" y="514" font-size="8.5" font-weight="600" fill="#9B8EC4">sync-wave order ↑</text>
+
+<!-- ── communication detail panel ───────────────────── -->
+<rect x="38" y="524" width="434" height="164" rx="8" fill="#F8F7F4" stroke="#B4B2A9" stroke-width="0.7"/>
+<text x="255" y="540" text-anchor="middle" font-size="9" font-weight="700" fill="#444441" letter-spacing="0.6" dominant-baseline="central">CONTROL PLANE COMMUNICATION</text>
+
+<!-- GitOps -->
+<rect x="50" y="550" width="10" height="10" rx="2" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="67" y="555" font-size="9" fill="#444441" dominant-baseline="central">GitOps:</text>
+<text x="107" y="555" font-size="9" fill="#5F5E5A" dominant-baseline="central">Argo CD → git.example.com (HTTPS) · selfHeal + prune</text>
+
+<!-- Provisioning -->
+<rect x="50" y="568" width="10" height="10" rx="2" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+<text x="67" y="573" font-size="9" fill="#444441" dominant-baseline="central">Provisioning:</text>
+<text x="121" y="573" font-size="9" fill="#5F5E5A" dominant-baseline="central">CAPI/Metal3 → BMC (IPMI/Redfish) → kubeadm :6443</text>
+
+<!-- Registration -->
+<rect x="50" y="586" width="10" height="10" rx="2" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.5"/>
+<text x="67" y="591" font-size="9" fill="#444441" dominant-baseline="central">Registration:</text>
+<text x="121" y="591" font-size="9" fill="#5F5E5A" dominant-baseline="central">kubeconfig secret → Job → Argo CD cluster secret</text>
+
+<!-- DPU -->
+<rect x="50" y="604" width="10" height="10" rx="2" fill="#EF9F27" stroke="#854F0B" stroke-width="0.5"/>
+<text x="67" y="609" font-size="9" fill="#444441" dominant-baseline="central">DPU ctrl:</text>
+<text x="107" y="609" font-size="9" fill="#5F5E5A" dominant-baseline="central">DPF Operator → Kamaji → BlueField Arm (kubelet)</text>
+
+<!-- OVN -->
+<rect x="50" y="622" width="10" height="10" rx="2" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="67" y="627" font-size="9" fill="#444441" dominant-baseline="central">OVN:</text>
+<text x="99" y="627" font-size="9" fill="#5F5E5A" dominant-baseline="central">HBN → OVN NB :6641 / SB :6642 (TCP · Geneve)</text>
+
+<!-- Networking -->
+<rect x="50" y="640" width="10" height="10" rx="2" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="67" y="645" font-size="9" fill="#444441" dominant-baseline="central">Network:</text>
+<text x="107" y="645" font-size="9" fill="#5F5E5A" dominant-baseline="central">Cilium native routing · 10.0.0.0/8 · kubeProxyReplacement</text>
+
+<!-- SR-IOV -->
+<rect x="50" y="658" width="10" height="10" rx="2" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="67" y="663" font-size="9" fill="#444441" dominant-baseline="central">SR-IOV:</text>
+<text x="107" y="663" font-size="9" fill="#5F5E5A" dominant-baseline="central">Mellanox 15b3 · switchdev · RDMA · 1 policy (ens1f1 · 16 VFs)</text>
+
+<!-- NADs -->
+<rect x="50" y="790" width="10" height="10" rx="2" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="67" y="681" font-size="9" fill="#444441" dominant-baseline="central">Multus NADs:</text>
+<text x="124" y="681" font-size="9" fill="#5F5E5A" dominant-baseline="central">mgmt-sriov VLAN 100 · tenant-a VLAN 210 · tenant-b VLAN 220</text>
+
+<!-- ════════════════════════════════════════════════════
+     FAN-OUT ARROWS  (center spine x=490..560)
+════════════════════════════════════════════════════ -->
+<!-- stem from ApplicationSet -->
+<line x1="490" y1="478" x2="524" y2="478" stroke="#3B6D11" stroke-width="2" marker-end="url(#a)"/>
+<!-- vertical spine -->
+<line x1="524" y1="188" x2="524" y2="648" stroke="#3B6D11" stroke-width="1.4"/>
+<!-- three branch arrows -->
+<line x1="524" y1="188" x2="554" y2="188" stroke="#3B6D11" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="524" y1="418" x2="554" y2="418" stroke="#3B6D11" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="524" y1="648" x2="554" y2="648" stroke="#3B6D11" stroke-width="1.4" marker-end="url(#a)"/>
+<!-- label -->
+<text x="513" y="380" text-anchor="middle" font-size="8.5" fill="#3B6D11" dominant-baseline="central" transform="rotate(-90,513,380)">ApplicationSet · creates &amp; deploys addons</text>
+
+<!-- ════════════════════════════════════════════════════
+     CHILD CLUSTER 1 — H100 / Hopper  (y=68..308)
+════════════════════════════════════════════════════ -->
+<rect x="554" y="68" width="626" height="240" rx="13" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.4" filter="url(#s)"/>
+
+<!-- header -->
+<rect x="554" y="68" width="626" height="36" rx="13" fill="#185FA5"/>
+<rect x="554" y="86" width="626" height="18" fill="#185FA5"/>
+<text x="867" y="87" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF" dominant-baseline="central">H100 cluster  ·  Hopper</text>
+<text x="1168" y="87" text-anchor="end" font-size="9" fill="#B5D4F4" dominant-baseline="central">Kubernetes v1.33.10  ·  1 control-plane  ·  2 workers</text>
+
+<!-- addons row 1 -->
+<rect x="568" y="114" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium</text>
+<text x="626" y="144" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">child CNI · Hubble</text>
+
+<rect x="696" y="114" width="116" height="40" rx="6" fill="#97C459" stroke="#3B6D11" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#173404" dominant-baseline="central">GPU Operator</text>
+<text x="754" y="144" text-anchor="middle" font-size="9" fill="#27500A" dominant-baseline="central">GPU lifecycle</text>
+
+<rect x="824" y="114" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">DPF / DPU</text>
+<text x="882" y="144" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">BlueField lifecycle</text>
+
+<rect x="952" y="114" width="116" height="40" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.7" filter="url(#s)"/>
+<text x="1010" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#412402" dominant-baseline="central">KubeVirt + CDI</text>
+<text x="1010" y="144" text-anchor="middle" font-size="9" fill="#633806" dominant-baseline="central">VM runtime</text>
+
+<rect x="1080" y="114" width="88" height="40" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.7" filter="url(#s)"/>
+<text x="1124" y="134" text-anchor="middle" font-size="10" font-weight="700" fill="#412402" dominant-baseline="central">KubeVirt</text>
+
+<!-- addons row 2 -->
+<rect x="568" y="164" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">HBN / OVN</text>
+<text x="626" y="194" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">host bridge net</text>
+
+<rect x="696" y="164" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">SR-IOV</text>
+<text x="754" y="194" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">ens1f1 · 16 VFs</text>
+
+<rect x="824" y="164" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Multus</text>
+<text x="882" y="194" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">3 NADs · RDMA</text>
+
+<!-- Multus NAD pills -->
+<rect x="952" y="164" width="90" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="997" y="173" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">mgmt VLAN 100</text>
+<rect x="952" y="186" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1000" y="195" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-a VLAN 210</text>
+<rect x="1052" y="164" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1100" y="173" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-b VLAN 220</text>
+
+<!-- DPU detail -->
+<rect x="568" y="216" width="600" height="34" rx="6" fill="#FFF4E8" stroke="#BA7517" stroke-width="0.7"/>
+<text x="578" y="228" font-size="9" font-weight="600" fill="#633806" dominant-baseline="central">DPU:</text>
+<text x="612" y="228" font-size="9" fill="#633806" dominant-baseline="central">Kamaji DPUCluster · dpu-cluster-a · max 16 nodes ·  HBN host-trusted · OVS-DPDK hw-offload · OVN Geneve :6641/:6642</text>
+
+<!-- H100 storage overlays -->
+<rect x="568" y="260" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="713" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">VAST</text>
+<text x="713" y="286" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">NVMe block + virtiofs overlay</text>
+
+<rect x="868" y="260" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="1013" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">WEKA</text>
+<text x="1013" y="286" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">virtiofs · POSIX parallel filesystem</text>
+
+<!-- ════════════════════════════════════════════════════
+     CHILD CLUSTER 2 — B200 / Blackwell  (y=298..538)
+════════════════════════════════════════════════════ -->
+<rect x="554" y="298" width="626" height="240" rx="13" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.4" filter="url(#s)"/>
+
+<rect x="554" y="298" width="626" height="36" rx="13" fill="#378ADD"/>
+<rect x="554" y="316" width="626" height="18" fill="#378ADD"/>
+<text x="867" y="317" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF" dominant-baseline="central">B200 cluster  ·  Blackwell</text>
+<text x="1168" y="317" text-anchor="end" font-size="9" fill="#D4EDFE" dominant-baseline="central">Kubernetes v1.33.10  ·  3 control-plane  ·  4 workers</text>
+
+<rect x="568" y="344" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium</text>
+<text x="626" y="374" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">child CNI · Hubble</text>
+
+<rect x="696" y="344" width="116" height="40" rx="6" fill="#97C459" stroke="#3B6D11" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#173404" dominant-baseline="central">GPU Operator</text>
+<text x="754" y="374" text-anchor="middle" font-size="9" fill="#27500A" dominant-baseline="central">GPU lifecycle</text>
+
+<rect x="824" y="344" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">DPF / DPU</text>
+<text x="882" y="374" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">BlueField lifecycle</text>
+
+<rect x="952" y="344" width="116" height="40" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.7" filter="url(#s)"/>
+<text x="1010" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#412402" dominant-baseline="central">KubeVirt + CDI</text>
+<text x="1010" y="374" text-anchor="middle" font-size="9" fill="#633806" dominant-baseline="central">VM runtime</text>
+
+<rect x="568" y="394" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="408" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">HBN / OVN</text>
+<text x="626" y="424" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">host bridge net</text>
+
+<rect x="696" y="394" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="408" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">SR-IOV</text>
+<text x="754" y="424" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">ens1f1 · 16 VFs</text>
+
+<rect x="824" y="394" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="408" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Multus</text>
+<text x="882" y="424" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">3 NADs · RDMA</text>
+
+<rect x="952" y="394" width="90" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="997" y="403" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">mgmt VLAN 100</text>
+<rect x="952" y="416" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1000" y="425" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-a VLAN 210</text>
+<rect x="1052" y="394" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1100" y="403" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-b VLAN 220</text>
+
+<rect x="568" y="446" width="600" height="34" rx="6" fill="#FFF4E8" stroke="#BA7517" stroke-width="0.7"/>
+<text x="578" y="458" font-size="9" font-weight="600" fill="#633806" dominant-baseline="central">DPU:</text>
+<text x="612" y="458" font-size="9" fill="#633806" dominant-baseline="central">Kamaji DPUCluster · dpu-cluster-a · max 16 nodes ·  HBN host-trusted · OVS-DPDK hw-offload · OVN Geneve :6641/:6642</text>
+
+<!-- B200 storage overlays -->
+<rect x="568" y="490" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="713" y="504" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">VAST</text>
+<text x="713" y="516" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">NVMe block + virtiofs overlay</text>
+
+<rect x="868" y="490" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="1013" y="504" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">WEKA</text>
+<text x="1013" y="516" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">virtiofs · POSIX parallel filesystem</text>
+
+<!-- ════════════════════════════════════════════════════
+     CHILD CLUSTER 3 — GB200 / Blackwell-Ultra  (y=528..700)
+════════════════════════════════════════════════════ -->
+<rect x="554" y="528" width="626" height="242" rx="13" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.4" filter="url(#s)"/>
+
+<rect x="554" y="528" width="626" height="36" rx="13" fill="#0C447C"/>
+<rect x="554" y="546" width="626" height="18" fill="#0C447C"/>
+<text x="867" y="547" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF" dominant-baseline="central">GB200 cluster  ·  Blackwell-Ultra</text>
+<text x="1168" y="547" text-anchor="end" font-size="9" fill="#B5D4F4" dominant-baseline="central">Kubernetes v1.33.10  ·  1 control-plane  ·  2 workers</text>
+
+<!-- GB200 row 1 -->
+<rect x="568" y="574" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="588" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Cilium</text>
+<text x="626" y="604" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">child CNI · Hubble</text>
+
+<rect x="696" y="574" width="116" height="40" rx="6" fill="#97C459" stroke="#3B6D11" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="588" text-anchor="middle" font-size="11" font-weight="700" fill="#173404" dominant-baseline="central">GPU Operator</text>
+<text x="754" y="604" text-anchor="middle" font-size="9" fill="#27500A" dominant-baseline="central">GPU lifecycle</text>
+
+<rect x="824" y="574" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="588" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">DPF / DPU</text>
+<text x="882" y="604" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">BlueField lifecycle</text>
+
+<rect x="952" y="574" width="116" height="40" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.7" filter="url(#s)"/>
+<text x="1010" y="588" text-anchor="middle" font-size="11" font-weight="700" fill="#412402" dominant-baseline="central">KubeVirt + CDI</text>
+<text x="1010" y="604" text-anchor="middle" font-size="9" fill="#633806" dominant-baseline="central">VM runtime</text>
+
+<!-- GB200 row 2 -->
+<rect x="568" y="624" width="116" height="40" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.7" filter="url(#s)"/>
+<text x="626" y="638" text-anchor="middle" font-size="11" font-weight="700" fill="#042C53" dominant-baseline="central">HBN / OVN</text>
+<text x="626" y="654" text-anchor="middle" font-size="9" fill="#0C447C" dominant-baseline="central">host bridge net</text>
+
+<rect x="696" y="624" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="754" y="638" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">SR-IOV</text>
+<text x="754" y="654" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">ens1f1 · 16 VFs</text>
+
+<rect x="824" y="624" width="116" height="40" rx="6" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.7" filter="url(#s)"/>
+<text x="882" y="638" text-anchor="middle" font-size="11" font-weight="700" fill="#04342C" dominant-baseline="central">Multus</text>
+<text x="882" y="654" text-anchor="middle" font-size="9" fill="#0F6E56" dominant-baseline="central">3 NADs · RDMA</text>
+
+<rect x="952" y="624" width="90" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="997" y="633" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">mgmt VLAN 100</text>
+<rect x="952" y="646" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1000" y="655" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-a VLAN 210</text>
+<rect x="1052" y="624" width="96" height="18" rx="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text x="1100" y="633" text-anchor="middle" font-size="8" fill="#042C53" dominant-baseline="central">tenant-b VLAN 220</text>
+
+<!-- DPU detail -->
+<rect x="568" y="674" width="600" height="34" rx="6" fill="#FFF4E8" stroke="#BA7517" stroke-width="0.7"/>
+<text x="578" y="686" font-size="9" font-weight="600" fill="#633806" dominant-baseline="central">DPU:</text>
+<text x="612" y="686" font-size="9" fill="#633806" dominant-baseline="central">Kamaji DPUCluster · dpu-cluster-a · max 16 nodes · HBN host-trusted · OVS-DPDK hw-offload · OVN Geneve :6641/:6642</text>
+
+<!-- storage overlays -->
+<rect x="568" y="718" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="713" y="732" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">VAST</text>
+<text x="713" y="744" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">NVMe block + virtiofs overlay</text>
+
+<rect x="868" y="718" width="290" height="32" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.8" filter="url(#s)"/>
+<text x="1013" y="732" text-anchor="middle" font-size="11" font-weight="700" fill="#26215C" dominant-baseline="central">WEKA</text>
+<text x="1013" y="744" text-anchor="middle" font-size="9" fill="#3C3489" dominant-baseline="central">virtiofs · POSIX parallel filesystem</text>
+
+<!-- ── legend ─────────────────────────────────────────── -->
+<rect x="20" y="782" width="1160" height="46" rx="9" fill="#E0DEDB" stroke="#B4B2A9" stroke-width="0.5"/>
+<rect x="32"  y="790" width="12" height="12" rx="2" fill="#FAECE7" stroke="#993C1D" stroke-width="1.1" stroke-dasharray="4 2"/>
+<text x="50"  y="796" font-size="9.5" fill="#5F5E5A" dominant-baseline="central">† Kyverno layer (dashed): kyverno variant (platform-supercontrolplane-oss-nvidia-capi-kyverno-fullstack) only · base package omits this layer</text>
+<text x="50"  y="812" font-size="9" fill="#888780" dominant-baseline="central">All clusters: platform-profile=nvidia-ai · gpu-family.nvidia.com/name={h100,b200,gb200} · no VRFs · SR-IOV policy only on ens1f1 (ens1f0 + ens1f2 device-plugin only)</text>
+</svg>

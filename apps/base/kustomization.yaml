@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Shared app-of-apps base for the supercontrolplane package family.
+# Keep only child Application definitions here. The root bootstrap Application belongs under `bootstrap/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - management-cilium.yaml
+  - cluster-api.yaml
+  - capm3.yaml
+  - inventory.yaml
+  - catalog.yaml
+  - kyverno.yaml
+  - onboarding.yaml
+  - services.yaml

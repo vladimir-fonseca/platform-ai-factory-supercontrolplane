@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPF control-plane object applied to child clusters that use the NVIDIA DPU stack.
+
+
+apiVersion: provisioning.dpu.nvidia.com/v1alpha1
+kind: DPUCluster
+# Logical DPU cluster that groups BlueField-managed DPU nodes.
+metadata:
+  # Defines the DPU-cluster Kubernetes control plane used to manage DPU services.
+  name: dpu-cluster-a
+  namespace: dpf-operator-system
+# Desired DPU cluster membership and control-plane behavior.
+spec:
+  # Validate the manager type against the exact DPF release you deploy.
+  type: kamaji
+
+  # Conservative fallback for the shared base.
+  # Environment overlays should replace this with a family- and site-oriented value.
+  maxNodes: 16
+
+  # Kubernetes version for the DPU cluster control plane.
+  version: v1.33.10

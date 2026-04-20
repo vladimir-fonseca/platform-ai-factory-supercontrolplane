@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# SriovNetworkNodePolicy that configures VFs for the tenant-b PF consumed by the device plugin resource `tenant_b_sriov`.
+
+
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: mlx-rdma-vfs-tenant-b
+  namespace: sriov-system
+spec:
+  # Resource name surfaced by the SR-IOV device plugin for the tenant-b network.
+  resourceName: tenant_b_sriov
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  nicSelector:
+    vendor: "15b3"
+    pfNames:
+      - ens1f2
+  numVfs: 16
+  eSwitchMode: "switchdev"
+  deviceType: netdevice
+  isRdma: true

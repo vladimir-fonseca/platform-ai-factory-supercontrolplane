@@ -1,0 +1,58 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the child-cluster NVIDIA AI addon stack.
+# Keep authored resources under `base/core/` and Helm/operator values under `base/values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Compose authored child-cluster addon resources and examples.
+  - core
+helmCharts:
+  # Render the child-cluster Cilium networking layer.
+  - name: cilium
+    releaseName: cilium
+    namespace: kube-system
+    repo: https://helm.cilium.io/
+    version: 1.19.2
+    valuesFile: values/values-cilium-child.yaml
+  # Render the child-cluster KubeVirt operator.
+  - name: kubevirt-operator
+    releaseName: kubevirt-operator
+    namespace: kubevirt
+    repo: oci://registry.example.com/platform/charts
+    version: 1.8.1
+    valuesFile: values/values-kubevirt-operator.yaml
+  # Render the child-cluster CDI operator.
+  - name: cdi-operator
+    releaseName: cdi-operator
+    namespace: cdi
+    repo: oci://registry.example.com/platform/charts
+    version: 1.61.0
+    valuesFile: values/values-cdi-operator.yaml
+  # Render the child-cluster NVIDIA GPU operator.
+  - name: gpu-operator
+    releaseName: gpu-operator
+    namespace: gpu-operator
+    repo: https://helm.ngc.nvidia.com/nvidia
+    version: v26.3.0
+    valuesFile: values/values-gpu-operator.yaml
+  # Render the child-cluster DPF operator.
+  - name: dpf-operator
+    releaseName: dpf-operator
+    namespace: dpf-operator-system
+    repo: https://helm.ngc.nvidia.com/nvidia/doca
+    version: v25.7.1
+    valuesFile: values/values-dpf-operator.yaml

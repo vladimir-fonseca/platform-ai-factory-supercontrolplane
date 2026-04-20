@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Overlay-specific values for the child-cluster NVIDIA AI addon stack.
+# This overlay owns the operator/runtime image pins so environment-specific qualification stays out of the shared base.
+
+# Child-cluster Cilium runtime image pins.
+
+
+cilium:
+  image:
+    repository: registry.example.com/platform/cilium
+    tag: 1.19.2
+  operator:
+    image:
+      repository: registry.example.com/platform/operator-generic
+      tag: 1.19.2
+
+# Child-cluster KubeVirt operator image pin.
+kubevirtOperator:
+  image:
+    repository: registry.example.com/platform/kubevirt-operator
+    tag: v1.8.1
+
+# Child-cluster CDI operator image pin.
+cdiOperator:
+  image:
+    repository: registry.example.com/platform/cdi-operator
+    tag: v1.61.0
+
+# Child-cluster GPU operator image pins.
+gpuOperator:
+  operator:
+    repository: registry.example.com/platform/gpu-operator
+    tag: v26.3.0
+
+# Child-cluster DPF operator image pin.
+dpfOperator:
+  controller:
+    repository: registry.example.com/platform/dpf-operator
+    tag: v25.7.1

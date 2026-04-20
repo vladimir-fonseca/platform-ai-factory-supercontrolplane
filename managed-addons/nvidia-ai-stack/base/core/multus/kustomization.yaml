@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Base composition for the child-cluster Multus layer.
+# Keep authored resources under `core/` and chart values under `values/`.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Install CRD and example NetworkAttachmentDefinition objects from Git.
+  - core
+helmCharts:
+  # Install Multus through Helm instead of a hand-written daemonset whenever possible.
+  - name: multus
+    # Helm release name used for rendered resource ownership.
+    releaseName: multus
+    # Namespace where Multus resources land in the child cluster.
+    namespace: multus-system
+    # Network plumbing chart repository.
+    repo: https://k8snetworkplumbingwg.github.io/multus-cni
+    # Pin the chart version for reproducible reconciliations.
+    version: 4.2.2
+    # Git-tracked values for Multus in this package.
+    valuesFile: values/values-multus-cni.yaml

@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPF control-plane object applied to child clusters that use the NVIDIA DPU stack.
+
+
+apiVersion: operator.dpu.nvidia.com/v1alpha1
+kind: DPFOperatorConfig
+# DPF operator configuration that turns on the DPU control plane in the child cluster.
+metadata:
+  # Singleton DPF system/operator config.
+  name: dpf-operator-config
+  namespace: dpf-operator-system
+# Desired DPF operator behavior and managed namespaces.
+spec:
+  # Use one cluster-manager mode only.
+  # This example prefers the Kamaji-backed DPU cluster manager path.
+  staticClusterManager:
+    disable: true
+  kamajiClusterManager:
+    disable: false
+
+  provisioningController:
+    # PVC used by the provisioning controller to cache or hold BFB artifacts.
+    # Ensure this PVC exists or is provisioned by your environment.
+    bfbPVCName: bfb-pool

@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# DPU deployment composition for the zero-trust profile.
+
+
+apiVersion: svc.dpu.nvidia.com/v1alpha1
+kind: DPUDeployment
+metadata:
+  # Deployment object that binds the zero-trust profile into the selected DPU cluster and DPU set.
+  name: dpu-deployment-zero-trust
+  namespace: dpf-operator-system
+spec:
+  # Target the DPU cluster that runs this deployment profile.
+  dpuCluster:
+    name: dpu-cluster-a
+  # Associate the deployment profile with the provisioned DPU set.
+  dpuSets:
+    - name: dpu-set-a
+  services: []

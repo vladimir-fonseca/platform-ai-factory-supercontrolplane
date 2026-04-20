@@ -1,0 +1,32 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# RBAC binding in the fleet namespace that grants the onboarding service account read access to child-cluster kubeconfig secrets and Cluster API objects.
+
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+# Binds the onboarding service account in argocd to the fleet-read role in the fleet namespace.
+metadata:
+  name: argocd-cluster-register-fleet-read
+  namespace: fleet
+# Identities that receive the RBAC permissions.
+subjects:
+  - kind: ServiceAccount
+    name: argocd-cluster-register
+    namespace: argocd
+# Role granted to the listed subjects.
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: argocd-cluster-register-fleet-read

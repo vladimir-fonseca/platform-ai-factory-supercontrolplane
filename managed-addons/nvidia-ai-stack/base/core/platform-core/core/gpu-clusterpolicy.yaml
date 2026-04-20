@@ -1,0 +1,54 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# GPU operator ClusterPolicy applied to onboarded child clusters.
+
+
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+# Singleton GPU Operator policy object.
+metadata:
+  # Singleton GPU Operator policy.
+  name: gpu-cluster-policy
+# Desired policy behavior enforced by the controller.
+spec:
+  # Sandbox workloads is needed when combining GPU Operator with KubeVirt.
+  sandboxWorkloads:
+    enabled: true
+
+  # Driver, toolkit, and device plugin are the essential GPU stack pieces.
+  driver:
+    enabled: true
+  toolkit:
+    enabled: true
+  devicePlugin:
+    enabled: true
+
+  # Enable GPU metrics export so utilization, memory, and error counters are visible to the observability stack.
+  dcgmExporter:
+    enabled: true
+
+  # Enable node status export so node-level GPU health is visible to operators.
+  nodeStatusExporter:
+    enabled: true
+
+  # Enable GPU feature discovery so scheduling and workload policy can use GPU labels.
+  gfd:
+    enabled: true
+
+  # Keep the shared base on the safe universal posture: full GPU presentation.
+  # Family-specific overlays replace this where MIG partitioning is actually intended.
+  mig:
+    strategy: none
+  migManager:
+    enabled: false

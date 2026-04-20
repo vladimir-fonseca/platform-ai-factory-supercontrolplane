@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# BareMetalHost inventory entry used by the management plane to map physical servers into cluster blueprints.
+
+
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+# BareMetalHost inventory object tracked by Metal3.
+metadata:
+  # Example host inventory object.
+  name: gb200-a
+  namespace: metal3-inventory
+  # Host classification labels used by scheduling and cluster templates.
+  labels:
+    gpu-family.nvidia.com/name: "gb200"
+    platform-profile: "nvidia-ai"
+# Provisioning intent for the physical host.
+spec:
+  online: true
+  bootMACAddress: "00:11:22:33:44:30"
+  # Out-of-band management endpoint and credentials.
+  bmc:
+    address: "redfish-virtualmedia://bmc.gb200-a.example.com/redfish/v1/Systems/System.Embedded.1"
+    credentialsName: "gb200-a-bmc-credentials"
+  image:
+    url: "https://images.example.com/metal3/gb200-host.qcow2"
+    checksum: "http://images.example.com/metal3/gb200-host.qcow2.sha256"
+  # Hint the disk that should be used as the installation target.
+  rootDeviceHints:
+    deviceName: "/dev/nvme0n1"

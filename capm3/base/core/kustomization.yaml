@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Namespace resources and supporting services required before the CAPM3 provider is installed.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Namespace for CAPM3 and its supporting infrastructure controllers.
+  - namespace.yaml
+  # Ironic deployment and service required for Metal3 bare-metal provisioning.
+  - ironic-deployment.yaml
+  # ClusterIP service that exposes the Ironic API to Metal3 and CAPM3 controllers.
+  - ironic-service.yaml

@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) 2026 Vladimir Fonseca
+#
+# This file is part of the platform-ai-factory-supercontrolplane project.
+#
+# Defines platform architecture, integration patterns, and deployment models.
+#
+# Third-party components referenced here remain the property of their
+# respective owners.
+#
+# Licensed under the Apache License, Version 2.0.
+# -----------------------------------------------------------------------------
+
+# Reusable Cluster API templates and example child clusters owned by the management-plane catalog.
+# This top-level core folder composes child modules, each of which follows the same `core/values` pattern.
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Namespace that scopes the catalog and child-cluster declarations.
+  - namespace
+  # Reusable ClusterClass shared across child clusters in this package family.
+  - clusterclass
+  # Example child clusters built from the reusable ClusterClass.
+  - clusters
+  # Reusable Metal3 cluster infrastructure template.
+  - metal3-cluster-template
+  # Reusable Metal3 worker-machine infrastructure template.
+  - metal3-machine-template
+  # Reusable kubeadm control-plane template.
+  - kubeadm-controlplane-template
+  # Reusable kubeadm worker bootstrap template.
+  - kubeadm-config-template
